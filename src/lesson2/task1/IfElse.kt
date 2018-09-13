@@ -2,6 +2,8 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson6.task1.dateDigitToStr
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
 
@@ -73,7 +75,21 @@ fun ageDescription(age: Int): String = TODO()
  */
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
-                   t3: Double, v3: Double): Double = TODO()
+                   t3: Double, v3: Double): Double {
+    var s: Double = (v1 * t1 + v2 * t2 + v3 * t3) / 2 //Половина пути
+    var t: Double = 0.0
+    if (s > (v1 * t1)){
+        s = s - (v1 * t1)
+        t = t1
+    }
+    if (s > (v2 * t2)) {
+        s = s - v2 * t2
+        t += t2
+        if (s != 0.0)
+            t = t + s / v3
+    } else t = t + s / v2
+        return t
+}
 
 /**
  * Простая
@@ -86,7 +102,8 @@ fun timeForHalfWay(t1: Double, v1: Double,
  */
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
-                       rookX2: Int, rookY2: Int): Int = TODO()
+                       rookX2: Int, rookY2: Int): Int =
+        if (  )
 
 /**
  * Простая
