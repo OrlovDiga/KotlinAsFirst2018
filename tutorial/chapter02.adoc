@@ -142,7 +142,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
 
 Здесь вновь используется функция `sqr` из урока 1 для вычисления квадратов чисел.
 Тип результата функции `pointInsideCircle` -- `Boolean`.
-При написании тестовых функций для неё удобно использовать готовые функции `assertTrue` и `assertFalse`, например:
+При написании тестовых функций для неё удобно использовать готовые функции вц`assertTrue` и `assertFalse`, например:
 
 [source,kotlin]
 ----
