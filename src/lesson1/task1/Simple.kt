@@ -3,19 +3,21 @@ package lesson1.task1
 
 import kotlin.math.*
 
+
+
     fun KolichestvoGodov (years : Double) =
             years * years * years
 
-    const val SecondInHours = 3600
-    const val SecondInMinutes = 60
-    const val VershoksInSagenes = 48
-    const val VershoksInArshins = 16
-    const val MetrsInVershoks = 0.04445
-    const val MinutesInHours = 60
-    const val Years = 3
-    const val GradusInRadian = 0.0174533
-    const val MinutesInRadian = 0.000290888
-    const val SecondInRadian = 4.84814e-6
+    const val SECOND_IN_HOUR = 3600
+    const val SECOND_IN_MINUTES = 60
+    const val VERSHOKS_IN_SAGENES = 48
+    const val VERSHOCK_IN_ARSHHINS = 16
+    const val METRS_IN_VERCHOKS = 0.04445
+    const val MINUTES_IN_HOURS = 60
+    const val YEARS = 3
+    const val GRADUS_IN_RADIAN = 0.0174533
+    const val MINUTES_IN_RADIAN = 0.000290888
+    const val SECOND_IN_RADIAN = 4.84814e-6
 
 
 /**
@@ -74,7 +76,7 @@ fun main(args: Array<String>) {
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int =
-        hours * SecondInHours + minutes * SecondInMinutes + seconds
+        hours * SECOND_IN_HOUR + minutes * SECOND_IN_MINUTES + seconds
 
 
 
@@ -86,7 +88,7 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int =
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
 fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
-        (VershoksInSagenes * sagenes + arshins * VershoksInArshins + vershoks) * MetrsInVershoks;
+        (VERSHOKS_IN_SAGENES * sagenes + arshins * VERSHOCK_IN_ARSHHINS + vershoks) * METRS_IN_VERCHOKS;
 
 
 
@@ -98,7 +100,7 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
 fun angleInRadian(grad: Int, min: Int, sec: Int): Double =
-        (grad + min * 60.0 + sec * 3600.0) * PI / 180
+        (grad.toDouble() + min.toDouble() / 60.0 + sec.toDouble() / 3600.0) * PI / 180
 
 
 
@@ -129,7 +131,7 @@ fun thirdDigit(number: Int): Int =
  * Определите время поезда в пути в минутах (в данном случае 216).
  */
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int =
-        (hoursArrive - hoursDepart) * MinutesInHours + minutesArrive - minutesDepart
+        (hoursArrive - hoursDepart) * MINUTES_IN_HOURS + minutesArrive - minutesDepart
 
 /**
  * Простая
@@ -150,15 +152,14 @@ fun accountInThreeYears(initial: Int, percent: Int): Double =
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
 fun numberRevert(number: Int): Int {
-
-    var FiniteNumber = 0
+    var finiteNumber = 0
     var seel = number
     while (seel > 0) {
-        FiniteNumber = FiniteNumber * 10 + seel % 10
+        finiteNumber = finiteNumber * 10 + seel % 10
         seel = seel / 10
 
     }
-    return FiniteNumber
+    return finiteNumber
 }
 
 

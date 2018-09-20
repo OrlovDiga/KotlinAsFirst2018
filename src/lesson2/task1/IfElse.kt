@@ -68,7 +68,7 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
 fun ageDescription(age: Int): String {
     return if (age % 10 == 1 && age % 100 != 11 )
          "$age год"
-    else if ((age % 10 > 1) && (age % 10 < 5) && age % 100 != 12 && age % 100 != 13 && age % 100 != 14)
+    else if (age % 10 in 2..4 && age % 100 !in 12..14)
          "$age года"
     else "$age лет"
 
@@ -111,16 +111,17 @@ fun timeForHalfWay(t1: Double, v1: Double,
  * и 3, если угроза от обеих ладей.
  * Считать, что ладьи не могут загораживать друг друга
  */
+
+fun proverka(x:Int, y:Int): Boolean = x == y
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    if ((kingX == rookX1 && kingY == rookY2) || (kingX == rookX2 && kingY == rookY1))
+    if ((proverka(kingX, rookX1) && proverka(kingY, rookY2) || proverka(kingX, rookX2) && proverka(kingY, rookY1)))
         return 3
-    else
-        if (kingX == rookX1 || kingY == rookY1)
+    else if (proverka(kingX, rookX1) || proverka(kingY, rookY1))
             return 1
     else
-            if (kingX == rookX2 || kingY == rookY2)
+            if (proverka(kingX, rookX2) || proverka(kingY, rookY2))
                 return 2
     else return 0
 
@@ -139,9 +140,9 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    return if ((kingX == rookX || kingY == rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY)))
+    return if ((proverka(kingX, rookX) || proverka(kingY, rookY) && proverka(abs(kingX - bishopX),abs(kingY - bishopY))))
          3
-    else if (abs(kingX - bishopX) == abs(kingY - bishopY))
+    else if (proverka(abs(kingX - bishopX), abs(kingY - bishopY)))
          2
     else if (kingX == rookX || kingY == rookY)
          1
@@ -157,16 +158,18 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    return if  ((a + b < c) || (a + c < b) || (b + c < a))
+    return if (a + b < c || a + c < b || b + c < a)
          -1
-    else if (sqr(a) + sqr(b) == sqr(c) || sqr(a) + sqr(c) == sqr(b) || sqr(c) + sqr(b) == sqr(a))
-          1
-    else if (sqr(a) + sqr(b) > sqr(c) || sqr(a) + sqr(c) > sqr(b) || sqr(c) + sqr(b) > sqr(a))
-          0
-    else if (sqr(a) + sqr(b) < sqr(c) || sqr(a) + sqr(c) < sqr(b) || sqr(c) + sqr(b) < sqr(a))
-          2
-    else -1
+    else {
+        if ((sqr(a) + sqr(b)) < sqr(c) || (sqr(a) + sqr(c)) < sqr(b) || (sqr(c) + sqr(b)) < sqr(a))
+            2
+        else
+        if ((sqr(a) + sqr(b)) == sqr(c) || (sqr(a) + sqr(c)) == sqr(b) || (sqr(c) + sqr(b)) == sqr(a))
+            1
+        else 0
+    }
 }
+
 
 /**
  * Средняя
@@ -177,19 +180,14 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    val l: Int // длина отрезка
     if (a <= c && b <= d && b >= a && d >= c) {
-        l = b - c
-        return l
+        return b - c
     } else if (b >= d && a <= c && b >= a && d >= c) {
-        l = d - c
-        return l
-    } else if (c <= a && d <= b && b >= a && d >= c && d >= a) {
-        l = d - a
-        return l
-    } else if (c <= a && b <= d && b >= a && d >= c) {
-        l = b - a
-        return l
+        return d - c
+    } else if (c <= a && d <= b && b > a && d >= c && d >= a) {
+        return d - a
+    } else if (c <= a && b <= d && b > a && d >= c ) {
+        return b - a
     } else return -1
 
 }

@@ -1,6 +1,8 @@
-@file:Suppress("UNUSED_PARAMETER")
+@file:Suppress("UNUSED_PARAMETER", "UNUSED_EXPRESSION")
 package lesson3.task1
 
+import lesson1.task1.sqr
+import kotlin.math.abs
 import kotlin.math.sqrt
 
 /**
@@ -66,7 +68,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int {
+    var kol = 0
+    var number = n
+    if (number == 0) return 1
+    while (number > 0){
+        number /= 10
+        kol++
+    }
+    return kol
+}
 
 /**
  * Простая
@@ -74,7 +85,21 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+ fun fib(n: Int): Int {
+    var result: Int = 0
+    var n2: Int = 1 // на 2 меньше заданного
+    var n1: Int = 1 // на 1 меньше заданного
+
+    if (n == 1 || n == 2)
+        return 1
+    else for (i in 3..n) {
+        result = n1 + n2
+        n2 = n1
+        n1 = result
+    }
+    return result
+
+}
 
 /**
  * Простая
@@ -82,21 +107,48 @@ fun fib(n: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var k: Int
+
+    if (n > m)
+        k = n
+    else
+        k = m
+
+    while ((k % n != 0) || (k % m != 0)) {
+        k++
+    }
+    return k
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    var del = 2
+    while (n % del != 0) {
+        del++
+    }
+    return del
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    var del: Int
+    var maxdel: Int = 1
+    for (del in 2 until n)
+        if (n % del == 0 && del > maxdel )
+            maxdel = del
+    return maxdel
+
+
+}
 
 /**
  * Простая
@@ -105,7 +157,19 @@ fun maxDivisor(n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var end: Int // число, до которого мы будем считать
+    if (m > n)
+        end = n
+    else
+        end = m
+    for (i in 2..end/2) {
+        if (n % i == 0 && m % i == 0)
+            return false
+    }
+    return true
+}
+
 
 /**
  * Простая
@@ -114,7 +178,21 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
+fun squareBetweenExists(m: Int, n: Int): Boolean {
+    var z = m
+    var k: Int = 1
+    while ( sqr(k) <=n) {
+        if (sqr(k) >= m) {
+            true
+            break
+        }
+        k++
+    }
+
+    return false
+
+
+}
 
 /**
  * Средняя
@@ -132,7 +210,21 @@ fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var number = x
+    var k = 0
+    while (number != 1) {
+        if (number % 2 == 0) {
+            number /= 2
+            k++
+        } else {
+            number = 3 * number + 1
+            k++
+        }
+    }
+    return k
+}
+
 
 /**
  * Средняя
@@ -141,7 +233,17 @@ fun collatzSteps(x: Int): Int = TODO()
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var p = x
+    var s = x
+    var n = 2
+    while (abs(p) > eps) {
+        p = -p* sqr(x)/(n*(n+1))
+        s += p
+        n += 2
+    }
+    return s
+}
 
 /**
  * Средняя
@@ -159,7 +261,16 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var number = n
+    var finalnumber = 0
+    while (number > 0) {
+        finalnumber = finalnumber * 10 + number % 10
+        number /= 10
+    }
+        return finalnumber
+
+    }
 
 /**
  * Средняя
@@ -170,7 +281,15 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    var number = n
+    var palindrom = 0
+    while (number > 0) {
+        palindrom = palindrom * 10 + number % 10
+        number /=10
+    }
+    return palindrom == n
+}
 
 /**
  * Средняя
@@ -180,7 +299,21 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var number: Int = n
+    var chislo: Int = n % 10
+    var k: Int = 0
+    while (k == 0 ) {
+        if (number % 10 == chislo)
+            number /=10
+        else
+            k++
+    }
+    if (k == 0)
+        true
+      return false
+}
+
 
 /**
  * Сложная
@@ -192,6 +325,8 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int = TODO()
+//
+//}
 
 /**
  * Сложная
@@ -203,3 +338,16 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int = TODO()
+//    var k = 0 // количество цифр в числе
+//    var i = 0
+//    var b: Int
+//    var c: Int
+//    while (n != k) {
+//        i++
+//        b = fib(i)
+//        d
+//
+//
+//    }
+//}
+
