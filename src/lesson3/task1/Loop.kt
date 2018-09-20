@@ -5,6 +5,25 @@ import lesson1.task1.sqr
 import kotlin.math.abs
 import kotlin.math.sqrt
 
+const val ten = 10.0
+
+fun pow(num: Double,y: Int): Double {
+    var z: Double = 1.0
+    var r = num
+    for(i in 1..y)
+        z *= r
+    return z
+}
+fun kol(num: Int): Int {
+    var k = 0
+    var n = num
+    while(n > 0) {
+        k ++
+        n /=10
+    }
+    return k
+}
+
 /**
  * Пример
  *
@@ -168,7 +187,9 @@ fun isCoPrime(m: Int, n: Int): Boolean {
             return false
     }
     return true
+
 }
+
 
 
 /**
@@ -233,16 +254,25 @@ fun collatzSteps(x: Int): Int {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
+
+
 fun sin(x: Double, eps: Double): Double {
     var p = x
-    var s = x
-    var n = 2
-    while (abs(p) > eps) {
-        p = -p* sqr(x)/(n*(n+1))
-        s += p
-        n += 2
+    var s = 1
+    var n = 1
+    while (abs(p) > abs(eps)) {
+        if (s % 2 == 1) {
+            p += (pow(x, n) / factorial(n))
+            n += 2
+            s++
+        }
+        if(s % 2 == 0) {
+            p -= (pow(x,n) / factorial(n))
+            n +=2
+            s++
+        }
     }
-    return s
+    return p
 }
 
 /**
@@ -252,7 +282,26 @@ fun sin(x: Double, eps: Double): Double {
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    var p = x
+    var s = 1
+    var n = 0
+    while (abs(p) > eps) {
+        if (s % 2 == 1) {
+            p += (pow(x, n) / factorial(n))
+            n += 2
+            s++
+        }
+        if(s % 2 == 0) {
+            p -= (pow(x, n) / factorial(n))
+            n +=2
+            s++
+        }
+    }
+    return p
+}
+
+
 
 /**
  * Средняя
@@ -325,8 +374,15 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int = TODO()
+//    var k = 1
+//    var p = 1
+//    var num = 1
+//    while(n != k ) {
+//        p = p
+//    }
 //
 //}
+
 
 /**
  * Сложная
@@ -337,17 +393,24 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
-//    var k = 0 // количество цифр в числе
-//    var i = 0
-//    var b: Int
-//    var c: Int
-//    while (n != k) {
-//        i++
-//        b = fib(i)
-//        d
-//
-//
-//    }
-//}
+fun fibSequenceDigit(n: Int): Int {
+
+    var k = 1 // количество цифр в чисел
+    var p = 1.0 // последовательность
+    var num = 2
+
+    while (n != k) {
+        p = pow(ten, kol(fib(num)))  + fib(num)
+        println(p)
+        k += kol(fib(num))
+        while(k > n) {
+            k--
+            p /= 10
+        }
+        num++
+    }
+        p %= 10
+        return p.toInt()
+}
+
 
