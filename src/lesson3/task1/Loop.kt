@@ -3,6 +3,7 @@ package lesson3.task1
 
 import lesson1.task1.sqr
 import kotlin.math.abs
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 const val ten = 10.0
@@ -16,12 +17,28 @@ fun pow(num: Double,y: Int): Double {
 }
 fun kol(num: Int): Int {
     var k = 0
-    var n = num
+    var n = abs(num)
     if(n == 0) return 1
     while(n > 0) {
         k ++
         n /=10
     }
+    return k
+}
+fun del(m: Int, n: Int): Int {
+    var k: Int
+    var nok: Int
+    var M = m
+    var N = n
+    nok = M * N
+    while (M != N) { //проверяем числа на неравенство
+
+        if (M > N)// выбираем большее число
+            M -= N //находим наибольший общий делитель
+        else
+            N -= M
+    }
+    k = nok / M
     return k
 }
 
@@ -119,19 +136,9 @@ fun digitNumber(n: Int): Int = kol(n)
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int {
-    var k: Int
+fun lcm(m: Int, n: Int): Int  = del(m,n)
 
-    if (n > m)
-        k = n
-    else
-        k = m
 
-    while ((k % n != 0) || (k % m != 0)) {
-        k++
-    }
-    return k
-}
 
 /**
  * Простая
@@ -193,17 +200,18 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    var z = 1
-    if (m == 1 || n ==1) return true
-    var k: Boolean = false
-    while (k && z < n) {
-        if (sqr(z) >= m && sqr(z) <= n )
+    var k: Int = 0
+    var N: Int
+
+    var bool: Boolean = false
+    while (!bool && k*k <= n) {
+        if (k * k in m..n) {
+            bool = true
             return true
-        z++
+        }
+        k++
     }
     return false
-
-
 
 }
 
@@ -249,22 +257,29 @@ fun collatzSteps(x: Int): Int {
 
 
 fun sin(x: Double, eps: Double): Double {
-    var p = x
-    var s = 1
-    var n = 1
-    while (abs(p) > abs(eps)) {
-        if (s % 2 == 1) {
-            p += (pow(x, n) / factorial(n))
-            n += 2
-            s++
-        }
-        if(s % 2 == 0) {
-            p -= (pow(x,n) / factorial(n))
-            n +=2
-            s++
-        }
+//    var p = x
+//    var s = 1
+//    var n = 1
+//    while (abs(p) > abs(eps)) {
+//
+//        if (s % 2 == 1) {
+//            p += (pow(x, n) / factorial(n))
+//            n += 2
+//            s++
+//        }
+//        if(s % 2 == 0) {
+//            p -= (pow(x,n) / factorial(n))
+//            n +=2
+//            s++
+//        }
+//    }
+//   return p.toDouble()
+    var res = 0.0
+    for (i in 1..1000) {
+        res += pow(-1.0, i)*res.pow((2*i-1).toDouble()) / factorial (2 * i - 1)
+        if (res.pow((2 * i - 1).toDouble()) / factorial (2 * i - 1) < eps) break
     }
-    return x
+    return res
 }
 
 /**
