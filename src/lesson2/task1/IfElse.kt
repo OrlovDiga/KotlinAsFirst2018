@@ -6,6 +6,7 @@ import lesson1.task1.sqr
 import lesson6.task1.dateDigitToStr
 import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
@@ -140,11 +141,11 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    return if ((proverka(kingX, rookX) || proverka(kingY, rookY) && proverka(abs(kingX - bishopX),abs(kingY - bishopY))))
+    return if ((proverka(kingX, rookX) || proverka(kingY, rookY) && (proverka(abs(kingX - bishopX), abs(kingY - bishopY)))))
          3
     else if (proverka(abs(kingX - bishopX), abs(kingY - bishopY)))
          2
-    else if (kingX == rookX || kingY == rookY)
+    else if (proverka(kingX, rookX) || proverka(kingY, rookY))
          1
     else 0
 
@@ -179,17 +180,13 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if (a <= c && b <= d && b >= a && d >= c) {
-        return b - c
-    } else if (b >= d && a <= c && b >= a && d >= c) {
-        return d - c
-    } else if (c <= a && d <= b && b > a && d >= c && d >= a) {
-        return d - a
-    } else if (c <= a && b <= d && b > a && d >= c ) {
-        return b - a
-    } else return -1
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
+    if (min(b, d) - max(a, c) >= 0)
+        min(b, d) - max(a, c)
+    else
+        -1
 
-}
+
+
 
 

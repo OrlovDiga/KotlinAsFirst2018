@@ -257,29 +257,24 @@ fun collatzSteps(x: Int): Int {
 
 
 fun sin(x: Double, eps: Double): Double {
-//    var p = x
-//    var s = 1
-//    var n = 1
-//    while (abs(p) > abs(eps)) {
-//
-//        if (s % 2 == 1) {
-//            p += (pow(x, n) / factorial(n))
-//            n += 2
-//            s++
-//        }
-//        if(s % 2 == 0) {
-//            p -= (pow(x,n) / factorial(n))
-//            n +=2
-//            s++
-//        }
-//    }
-//   return p.toDouble()
-    var res = 0.0
-    for (i in 1..1000) {
-        res += pow(-1.0, i)*res.pow((2*i-1).toDouble()) / factorial (2 * i - 1)
-        if (res.pow((2 * i - 1).toDouble()) / factorial (2 * i - 1) < eps) break
+    var p = x
+    var s = 1
+    var n = 1
+    while (abs(p) > abs(eps)) {
+
+        if (s % 2 == 1) {
+            p += (pow(x, n) / factorial(n))
+            n += 2
+            s++
+        }
+        if(s % 2 == 0) {
+            p -= (pow(x,n) / factorial(n))
+            n +=2
+            s++
+        }
     }
-    return res
+   return p.toDouble()
+
 }
 
 /**
