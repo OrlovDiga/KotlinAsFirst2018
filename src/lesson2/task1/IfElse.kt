@@ -141,12 +141,12 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    return if ((proverka(kingX, rookX) || proverka(kingY, rookY) && (proverka(abs(kingX - bishopX), abs(kingY - bishopY)))))
-         3
+    return if ((proverka(kingX, rookX) || proverka(kingY, rookY) && proverka(abs(kingX - bishopX), abs(kingY - bishopY))))
+        3
     else if (proverka(abs(kingX - bishopX), abs(kingY - bishopY)))
-         2
+        2
     else if (proverka(kingX, rookX) || proverka(kingY, rookY))
-         1
+        1
     else 0
 
 }

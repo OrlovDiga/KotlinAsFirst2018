@@ -2,6 +2,7 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
+import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -200,19 +201,14 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    var k: Int = 0
+    var k: Int
     var N: Int
-
     var bool: Boolean = false
-    while (!bool && k*k <= n) {
-        if (k * k in m..n) {
-            bool = true
+    for (k in m..n) {
+        if (sqrt(k.toDouble()) % 1 == 0.0)
             return true
-        }
-        k++
     }
     return false
-
 }
 
 /**
@@ -257,18 +253,19 @@ fun collatzSteps(x: Int): Int {
 
 
 fun sin(x: Double, eps: Double): Double {
-    var p = x
-    var s = 1
-    var n = 1
-    while (abs(p) > abs(eps)) {
+    var p = 0.0
+    var s = 1 // Помогает определить, вычитать или суммировать
+    var n = 1 //
+    var num = x % (2 * PI)
+    while (abs((pow(num, n) / factorial(n))) >= eps) {
 
         if (s % 2 == 1) {
-            p += (pow(x, n) / factorial(n))
+            p += (pow(num, n) / factorial(n))
             n += 2
             s++
         }
         if(s % 2 == 0) {
-            p -= (pow(x,n) / factorial(n))
+            p -= (pow(num,n) / factorial(n))
             n +=2
             s++
         }
@@ -285,17 +282,18 @@ fun sin(x: Double, eps: Double): Double {
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
 fun cos(x: Double, eps: Double): Double {
-    var p = x
+    var p = 0.0
     var s = 1
     var n = 0
-    while (abs(p) > eps) {
+    var num = x % (2 * PI)
+    while (abs((pow(num, n) / factorial(n))) >= eps) {
         if (s % 2 == 1) {
-            p += (pow(x, n) / factorial(n))
+            p += (pow(num, n) / factorial(n))
             n += 2
             s++
         }
         if(s % 2 == 0) {
-            p -= (pow(x, n) / factorial(n))
+            p -= (pow(num, n) / factorial(n))
             n +=2
             s++
         }
