@@ -17,6 +17,7 @@ fun pow(num: Double,y: Int): Double {
 fun kol(num: Int): Int {
     var k = 0
     var n = num
+    if(n == 0) return 1
     while(n > 0) {
         k ++
         n /=10
@@ -87,16 +88,8 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int {
-    var kol = 0
-    var number = n
-    if (number == 0) return 1
-    while (number > 0){
-        number /= 10
-        kol++
-    }
-    return kol
-}
+fun digitNumber(n: Int): Int = kol(n)
+
 
 /**
  * Простая
@@ -182,7 +175,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
         end = n
     else
         end = m
-    for (i in 2..end/2) {
+    for (i in 2..end) {
         if (n % i == 0 && m % i == 0)
             return false
     }
@@ -200,17 +193,16 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    var z = m
-    var k: Int = 1
-    while ( sqr(k) <=n) {
-        if (sqr(k) >= m) {
-            true
-            break
-        }
-        k++
+    var z = 1
+    if (m == 1 || n ==1) return true
+    var k: Boolean = false
+    while (k && z < n) {
+        if (sqr(z) >= m && sqr(z) <= n )
+            return true
+        z++
     }
-
     return false
+
 
 
 }
@@ -272,7 +264,7 @@ fun sin(x: Double, eps: Double): Double {
             s++
         }
     }
-    return p
+    return x
 }
 
 /**
@@ -349,18 +341,17 @@ fun isPalindrome(n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
+    if (n == 0) false
+
     var number: Int = n
     var chislo: Int = n % 10
-    var k: Int = 0
-    while (k == 0 ) {
+    while (number >0) {
         if (number % 10 == chislo)
             number /=10
         else
-            k++
+            return true
     }
-    if (k == 0)
-        true
-      return false
+    return false
 }
 
 
@@ -373,15 +364,27 @@ fun hasDifferentDigits(n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
-//    var k = 1
-//    var p = 1
-//    var num = 1
-//    while(n != k ) {
-//        p = p
-//    }
-//
-//}
+fun squareSequenceDigit(n: Int): Int {
+    var k = 1 // количество цифр в чисел
+    var p = 1.0 // последовательность
+    var num = 2
+
+    while (n !=k) {
+        p = pow(ten, kol(sqr(num))) + sqr(num)
+        k += kol(sqr(num))
+        while (k > n) {
+            k--
+            p /= 10
+        }
+        num++
+
+    }
+    p %=10
+    return p.toInt()
+
+
+}
+
 
 
 /**
