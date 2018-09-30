@@ -3,7 +3,6 @@ package lesson2.task1
 
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
-import lesson6.task1.dateDigitToStr
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -72,9 +71,7 @@ fun ageDescription(age: Int): String {
     else if (age % 10 in 2..4 && age % 100 !in 12..14)
          "$age года"
     else "$age лет"
-
 }
-
 
 /**
  * Простая
@@ -112,20 +109,18 @@ fun timeForHalfWay(t1: Double, v1: Double,
  * и 3, если угроза от обеих ладей.
  * Считать, что ладьи не могут загораживать друг друга
  */
-
-fun proverka(x:Int, y:Int): Boolean = x == y
+fun equaliteOfPairsOfNumbers(x:Int, y:Int, z: Int, w: Int): Boolean = x == y || w == z
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    if ((proverka(kingX, rookX1) && proverka(kingY, rookY2) || proverka(kingX, rookX2) && proverka(kingY, rookY1)))
-        return 3
-    else if (proverka(kingX, rookX1) || proverka(kingY, rookY1))
-            return 1
+    return if (kingX == rookX1 && kingY == rookY2 || kingX == rookX2 && kingY == rookY1)
+        3
+    else if (equaliteOfPairsOfNumbers(kingX, rookX1, kingY, rookY1))
+        1
     else
-            if (proverka(kingX, rookX2) || proverka(kingY, rookY2))
-                return 2
-    else return 0
-
+        if (equaliteOfPairsOfNumbers(kingX, rookX2, kingY, rookY2))
+            2
+        else 0
 }
 
 /**
@@ -141,16 +136,15 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    return if ((kingX == rookX || kingY == rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY)))
+    return if (equaliteOfPairsOfNumbers(kingX, rookX, kingY, rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY)))
         3
     else if (abs(kingX - bishopX) == abs(kingY - bishopY))
         2
-    else if (kingX == rookX || kingY == rookY)
+    else if (equaliteOfPairsOfNumbers(kingX, rookX, kingY, rookY))
         1
     else 0
-
-
 }
+
 /**
  * Простая
  *
@@ -172,7 +166,6 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     }
 }
 
-
 /**
  * Средняя
  *
@@ -186,8 +179,3 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
         min(b, d) - max(a, c)
     else
         -1
-
-
-
-
-

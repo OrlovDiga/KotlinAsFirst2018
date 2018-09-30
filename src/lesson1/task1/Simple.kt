@@ -5,7 +5,7 @@ import kotlin.math.*
 
 
 
-    fun KolichestvoGodov (years : Double) =
+fun KolichestvoGodov (years : Double) =
             years * years * years
 
     const val SECOND_IN_HOUR = 3600
@@ -78,8 +78,6 @@ fun main(args: Array<String>) {
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int =
         hours * SECOND_IN_HOUR + minutes * SECOND_IN_MINUTES + seconds
 
-
-
 /**
  * Тривиальная
  *
@@ -90,9 +88,6 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int =
 fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
         (VERSHOKS_IN_SAGENES * sagenes + arshins * VERSHOCK_IN_ARSHHINS + vershoks) * METRS_IN_VERCHOKS;
 
-
-
-
 /**
  * Тривиальная
  *
@@ -102,9 +97,6 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
 fun angleInRadian(grad: Int, min: Int, sec: Int): Double =
         (grad.toDouble() + min.toDouble() / 60.0 + sec.toDouble() / 3600.0) * PI / 180
 
-
-
-
 /**
  * Тривиальная
  *
@@ -112,7 +104,8 @@ fun angleInRadian(grad: Int, min: Int, sec: Int): Double =
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
 fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double =
-        sqrt( sqr(x2 - x1) + sqr(y2 - y1))
+        sqrt(sqr(x2 - x1) + sqr(y2 - y1))
+
 /**
  * Простая
  *

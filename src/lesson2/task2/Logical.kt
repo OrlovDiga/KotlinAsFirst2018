@@ -2,6 +2,7 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
+import lesson1.task1.trackLength
 import kotlin.math.abs
 import kotlin.math.sqrt
 
@@ -22,8 +23,6 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
 fun isNumberHappy(number: Int): Boolean =
     number % 10 + number % 100 / 10 == number / 1000 + number / 100 % 10
 
-
-
 /**
  * Простая
  *
@@ -32,12 +31,8 @@ fun isNumberHappy(number: Int): Boolean =
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
-    return  if ((x1 == x2) || (y1 === y2) || (abs(x2 - x1) == abs(y2 - y1)))
-        true
-    else false
+    return (x1 == x2) || (y1 === y2) || (abs(x2 - x1) == abs(y2 - y1))
 }
-
-
 
 /**
  * Простая
@@ -58,7 +53,6 @@ fun daysInMonth(month: Int, year: Int): Int {
 
 }
 
-
 /**
  * Средняя
  *
@@ -68,13 +62,7 @@ fun daysInMonth(month: Int, year: Int): Int {
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean =
-    sqrt(sqr(x2 - x1) + sqr(y2 - y1)) + r1 <= r2
-
-
-
-
-
-
+        trackLength(x1, y1, x2, y2) + r1 <= r2
 
 /**
  * Средняя
@@ -89,6 +77,3 @@ fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
         (a * b <= r * s && (a <= r && b <= s || a <= s && b <= r)) ||
         (a * c <= r * s && (a <= r && c <= s || a <= s && c <= r)) ||
         (b * c <= r * s && (c <= r && b <= s || c <= s && b <= r))
-
-
-

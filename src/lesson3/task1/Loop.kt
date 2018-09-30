@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER", "UNUSED_EXPRESSION")
+
 package lesson3.task1
 
 import lesson1.task1.sqr
@@ -7,39 +8,39 @@ import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-const val ten = 10.0
+const val TEN = 10.0
 
-fun pow(num: Double,y: Int): Double {
-    var z: Double = 1.0
-    var r = num
-    for(i in 1..y)
-        z *= r
+fun pow(num: Double, y: Int): Double {
+    var z = 1.0
+    for (i in 1..y)
+        z *= num
     return z
 }
+
 fun kol(num: Int): Int {
     var k = 0
     var n = abs(num)
-    if(n == 0) return 1
-    while(n > 0) {
-        k ++
-        n /=10
+    if (n == 0) return 1
+    while (n > 0) {
+        k++
+        n /= 10
     }
     return k
 }
-fun del(m: Int, n: Int): Int {
-    var k: Int
-    var nok: Int
-    var M = m
-    var N = n
-    nok = M * N
-    while (M != N) { //проверяем числа на неравенство
 
-        if (M > N)// выбираем большее число
-            M -= N //находим наибольший общий делитель
+fun del(m: Int, n: Int): Int {
+    val k: Int
+    var am = m
+    var an = n
+    val nok = am * an
+    while (am != an) { //проверяем числа на неравенство
+
+        if (am > an)// выбираем большее число
+            am -= an //находим наибольший общий делитель
         else
-            N -= M
+            an -= am
     }
-    k = nok / M
+    k = nok / am
     return k
 }
 
@@ -78,7 +79,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n/2) {
+    for (m in 2..n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -108,18 +109,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int = kol(n)
 
-
 /**
  * Простая
  *
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
- fun fib(n: Int): Int {
+fun fib(n: Int): Int {
     var result: Int = 0
-    var n2: Int = 1 // на 2 меньше заданного
-    var n1: Int = 1 // на 1 меньше заданного
-
+    var n2 = 1 // на 2 меньше заданного
+    var n1 = 1 // на 1 меньше заданного
     if (n == 1 || n == 2)
         return 1
     else for (i in 3..n) {
@@ -128,7 +127,6 @@ fun digitNumber(n: Int): Int = kol(n)
         n1 = result
     }
     return result
-
 }
 
 /**
@@ -137,9 +135,7 @@ fun digitNumber(n: Int): Int = kol(n)
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int  = del(m,n)
-
-
+fun lcm(m: Int, n: Int): Int = del(m, n)
 
 /**
  * Простая
@@ -160,14 +156,11 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var del: Int
-    var maxdel: Int = 1
+    var maxdel = 1
     for (del in 2 until n)
-        if (n % del == 0 && del > maxdel )
+        if (n % del == 0 && del > maxdel)
             maxdel = del
     return maxdel
-
-
 }
 
 /**
@@ -178,20 +171,12 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    var end: Int // число, до которого мы будем считать
-    if (m > n)
-        end = n
+    val end: Int = if (m > n)
+        n
     else
-        end = m
-    for (i in 2..end) {
-        if (n % i == 0 && m % i == 0)
-            return false
-    }
-    return true
-
+        m // число, до которого мы будем считать
+    return (2..end).none { n % it == 0 && m % it == 0 }
 }
-
-
 
 /**
  * Простая
@@ -201,14 +186,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    var k: Int
-    var N: Int
-    var bool: Boolean = false
-    for (k in m..n) {
-        if (sqrt(k.toDouble()) % 1 == 0.0)
-            return true
-    }
-    return false
+    return (m..n).any { sqrt(it.toDouble()) % 1 == 0.0 }
 }
 
 /**
@@ -242,7 +220,6 @@ fun collatzSteps(x: Int): Int {
     return k
 }
 
-
 /**
  * Средняя
  *
@@ -256,22 +233,20 @@ fun sin(x: Double, eps: Double): Double {
     var p = 0.0
     var s = 1 // Помогает определить, вычитать или суммировать
     var n = 1 //
-    var num = x % (2 * PI)
+    val num = x % (2 * PI)
     while (abs((pow(num, n) / factorial(n))) >= eps) {
-
         if (s % 2 == 1) {
             p += (pow(num, n) / factorial(n))
             n += 2
             s++
         }
-        if(s % 2 == 0) {
-            p -= (pow(num,n) / factorial(n))
-            n +=2
+        if (s % 2 == 0) {
+            p -= (pow(num, n) / factorial(n))
+            n += 2
             s++
         }
     }
-   return p.toDouble()
-
+    return p
 }
 
 /**
@@ -285,23 +260,21 @@ fun cos(x: Double, eps: Double): Double {
     var p = 0.0
     var s = 1
     var n = 0
-    var num = x % (2 * PI)
+    val num = x % (2 * PI)
     while (abs((pow(num, n) / factorial(n))) >= eps) {
         if (s % 2 == 1) {
             p += (pow(num, n) / factorial(n))
             n += 2
             s++
         }
-        if(s % 2 == 0) {
+        if (s % 2 == 0) {
             p -= (pow(num, n) / factorial(n))
-            n +=2
+            n += 2
             s++
         }
     }
     return p
 }
-
-
 
 /**
  * Средняя
@@ -317,9 +290,8 @@ fun revert(n: Int): Int {
         finalnumber = finalnumber * 10 + number % 10
         number /= 10
     }
-        return finalnumber
-
-    }
+    return finalnumber
+}
 
 /**
  * Средняя
@@ -330,15 +302,7 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean {
-    var number = n
-    var palindrom = 0
-    while (number > 0) {
-        palindrom = palindrom * 10 + number % 10
-        number /=10
-    }
-    return palindrom == n
-}
+fun isPalindrome(n: Int): Boolean = (revert(n) == n)
 
 /**
  * Средняя
@@ -350,18 +314,16 @@ fun isPalindrome(n: Int): Boolean {
  */
 fun hasDifferentDigits(n: Int): Boolean {
     if (n == 0) false
-
-    var number: Int = n
-    var chislo: Int = n % 10
-    while (number >0) {
+    var number = n
+    val chislo = n % 10
+    while (number > 0) {
         if (number % 10 == chislo)
-            number /=10
+            number /= 10
         else
             return true
     }
     return false
 }
-
 
 /**
  * Сложная
@@ -372,28 +334,25 @@ fun hasDifferentDigits(n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int {
+fun SequenceDigit(n: Int, function: (Int) -> Int ): Int {
     var k = 1 // количество цифр в чисел
     var p = 1.0 // последовательность
     var num = 2
-
-    while (n !=k) {
-        p = pow(ten, kol(sqr(num))) + sqr(num)
-        k += kol(sqr(num))
+    while (n != k) {
+        p = pow(TEN, kol(function(num))) + function(num)
+        k += kol(function(num))
         while (k > n) {
             k--
             p /= 10
         }
         num++
-
     }
-    p %=10
+    p %= 10
     return p.toInt()
-
-
 }
 
-
+// Мой пукан горел как в аду, когда я это переделывал :)
+fun squareSequenceDigit(n: Int): Int = SequenceDigit(n, ::sqr)
 
 /**
  * Сложная
@@ -404,24 +363,4 @@ fun squareSequenceDigit(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int {
-
-    var k = 1 // количество цифр в чисел
-    var p = 1.0 // последовательность
-    var num = 2
-
-    while (n != k) {
-        p = pow(ten, kol(fib(num)))  + fib(num)
-        println(p)
-        k += kol(fib(num))
-        while(k > n) {
-            k--
-            p /= 10
-        }
-        num++
-    }
-        p %= 10
-        return p.toInt()
-}
-
-
+fun fibSequenceDigit(n: Int): Int = SequenceDigit(n, ::fib)
