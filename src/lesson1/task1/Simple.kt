@@ -3,9 +3,7 @@ package lesson1.task1
 
 import kotlin.math.*
 
-
-
-fun KolichestvoGodov (years : Double) =
+fun kolichestvoGodov(years : Double) =
             years * years * years
 
     const val SECOND_IN_HOUR = 3600
@@ -18,7 +16,6 @@ fun KolichestvoGodov (years : Double) =
     const val GRADUS_IN_RADIAN = 0.0174533
     const val MINUTES_IN_RADIAN = 0.000290888
     const val SECOND_IN_RADIAN = 4.84814e-6
-
 
 /**
  * Пример
@@ -134,7 +131,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double =
-        initial.toDouble() * KolichestvoGodov((1 + (percent.toDouble() / 100)))
+        initial.toDouble() * kolichestvoGodov((1 + (percent.toDouble() / 100)))
 
 
 
@@ -149,7 +146,7 @@ fun numberRevert(number: Int): Int {
     var seel = number
     while (seel > 0) {
         finiteNumber = finiteNumber * 10 + seel % 10
-        seel = seel / 10
+        seel /= 10
 
     }
     return finiteNumber

@@ -28,20 +28,16 @@ fun kol(num: Int): Int {
     return k
 }
 
-fun del(m: Int, n: Int): Int {
-    val k: Int
+fun algEvkida(m: Int, n: Int): Int {
     var am = m
     var an = n
-    val nok = am * an
     while (am != an) { //проверяем числа на неравенство
-
         if (am > an)// выбираем большее число
             am -= an //находим наибольший общий делитель
         else
             an -= am
     }
-    k = nok / am
-    return k
+    return am
 }
 
 /**
@@ -52,7 +48,7 @@ fun del(m: Int, n: Int): Int {
 fun factorial(n: Int): Double {
     var result = 1.0
     for (i in 1..n) {
-        result = result * i // Please do not fix in master
+        result *= i // Please do not fix in master
     }
     return result
 }
@@ -66,10 +62,7 @@ fun isPrime(n: Int): Boolean {
     if (n < 2) return false
     if (n == 2) return true
     if (n % 2 == 0) return false
-    for (m in 3..sqrt(n.toDouble()).toInt() step 2) {
-        if (n % m == 0) return false
-    }
-    return true
+    return (3..sqrt(n.toDouble()).toInt() step 2).none { n % it == 0 }
 }
 
 /**
@@ -116,7 +109,7 @@ fun digitNumber(n: Int): Int = kol(n)
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var result: Int = 0
+    var result = 0
     var n2 = 1 // на 2 меньше заданного
     var n1 = 1 // на 1 меньше заданного
     if (n == 1 || n == 2)
@@ -135,7 +128,7 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = del(m, n)
+fun lcm(m: Int, n: Int): Int =  m * n / algEvkida(m, n)
 
 /**
  * Простая
@@ -155,13 +148,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var maxdel = 1
-    for (del in 2 until n)
-        if (n % del == 0 && del > maxdel)
-            maxdel = del
-    return maxdel
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая
@@ -170,13 +157,13 @@ fun maxDivisor(n: Int): Int {
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    val end: Int = if (m > n)
-        n
-    else
-        m // число, до которого мы будем считать
-    return (2..end).none { n % it == 0 && m % it == 0 }
-}
+fun isCoPrime(m: Int, n: Int): Boolean = algEvkida(m, n) == 1
+//    val end = if (m > n)
+//        n
+//    else
+//        m // число, до которого мы будем считать
+//    return (2..end).none { n % it == 0 && m % it == 0 }
+//}
 
 /**
  * Простая
@@ -211,11 +198,10 @@ fun collatzSteps(x: Int): Int {
     while (number != 1) {
         if (number % 2 == 0) {
             number /= 2
-            k++
         } else {
             number = 3 * number + 1
-            k++
         }
+        k++
     }
     return k
 }
