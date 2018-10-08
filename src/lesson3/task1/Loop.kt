@@ -5,7 +5,6 @@ package lesson3.task1
 import lesson1.task1.sqr
 import kotlin.math.PI
 import kotlin.math.abs
-import kotlin.math.pow
 import kotlin.math.sqrt
 
 const val TEN = 10.0
@@ -17,7 +16,7 @@ fun pow(num: Double, y: Int): Double {
     return z
 }
 
-fun kol(num: Int): Int {
+fun quantityNum(num: Int): Int {
     var k = 0
     var n = abs(num)
     if (n == 0) return 1
@@ -28,7 +27,7 @@ fun kol(num: Int): Int {
     return k
 }
 
-fun algEvkida(m: Int, n: Int): Int {
+fun algEvklida(m: Int, n: Int): Int {
     var am = m
     var an = n
     while (am != an) { //проверяем числа на неравенство
@@ -100,7 +99,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = kol(n)
+fun digitNumber(n: Int): Int = quantityNum(n)
 
 /**
  * Простая
@@ -128,7 +127,7 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int =  m * n / algEvkida(m, n)
+fun lcm(m: Int, n: Int): Int =  m * n / algEvklida(m, n)
 
 /**
  * Простая
@@ -157,7 +156,7 @@ fun maxDivisor(n: Int): Int = n / minDivisor(n)
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = algEvkida(m, n) == 1
+fun isCoPrime(m: Int, n: Int): Boolean = algEvklida(m, n) == 1
 //    val end = if (m > n)
 //        n
 //    else
@@ -172,9 +171,9 @@ fun isCoPrime(m: Int, n: Int): Boolean = algEvkida(m, n) == 1
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean {
-    return (m..n).any { sqrt(it.toDouble()) % 1 == 0.0 }
-}
+fun squareBetweenExists(m: Int, n: Int): Boolean =
+        (m..n).any { sqrt(it.toDouble()) % 1 == 0.0 }
+
 
 /**
  * Средняя
@@ -217,20 +216,13 @@ fun collatzSteps(x: Int): Int {
 
 fun sin(x: Double, eps: Double): Double {
     var p = 0.0
-    var s = 1 // Помогает определить, вычитать или суммировать
     var n = 1 //
+    var k = 1
     val num = x % (2 * PI)
     while (abs((pow(num, n) / factorial(n))) >= eps) {
-        if (s % 2 == 1) {
-            p += (pow(num, n) / factorial(n))
-            n += 2
-            s++
-        }
-        if (s % 2 == 0) {
-            p -= (pow(num, n) / factorial(n))
-            n += 2
-            s++
-        }
+        p += k * (pow(num, n) / factorial(n))
+        n += 2
+        k *= -1
     }
     return p
 }
@@ -244,20 +236,13 @@ fun sin(x: Double, eps: Double): Double {
  */
 fun cos(x: Double, eps: Double): Double {
     var p = 0.0
-    var s = 1
     var n = 0
+    var k = 1
     val num = x % (2 * PI)
     while (abs((pow(num, n) / factorial(n))) >= eps) {
-        if (s % 2 == 1) {
-            p += (pow(num, n) / factorial(n))
-            n += 2
-            s++
-        }
-        if (s % 2 == 0) {
-            p -= (pow(num, n) / factorial(n))
-            n += 2
-            s++
-        }
+        p += k * (pow(num, n) / factorial(n))
+        n += 2
+        k *= -1
     }
     return p
 }
@@ -320,13 +305,13 @@ fun hasDifferentDigits(n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun SequenceDigit(n: Int, function: (Int) -> Int ): Int {
+fun sequenceDigit(n: Int, function: (Int) -> Int ): Int {
     var k = 1 // количество цифр в чисел
     var p = 1.0 // последовательность
     var num = 2
     while (n != k) {
-        p = pow(TEN, kol(function(num))) + function(num)
-        k += kol(function(num))
+        p = pow(TEN, quantityNum(function(num))) + function(num)
+        k += quantityNum(function(num))
         while (k > n) {
             k--
             p /= 10
@@ -338,7 +323,7 @@ fun SequenceDigit(n: Int, function: (Int) -> Int ): Int {
 }
 
 // Мой пукан горел как в аду, когда я это переделывал :)
-fun squareSequenceDigit(n: Int): Int = SequenceDigit(n, ::sqr)
+fun squareSequenceDigit(n: Int): Int = sequenceDigit(n, ::sqr)
 
 /**
  * Сложная
@@ -349,4 +334,4 @@ fun squareSequenceDigit(n: Int): Int = SequenceDigit(n, ::sqr)
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = SequenceDigit(n, ::fib)
+fun fibSequenceDigit(n: Int): Int = sequenceDigit(n, ::fib)
