@@ -7,8 +7,6 @@ import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.sqrt
 
-const val TEN = 10.0
-
 fun pow(num: Double, y: Int): Double {
     var z = 1.0
     for (i in 1..y)
@@ -310,7 +308,7 @@ fun sequenceDigit(n: Int, function: (Int) -> Int ): Int {
     var p = 1.0 // последовательность
     var num = 2
     while (n != k) {
-        p = pow(TEN, quantityNum(function(num))) + function(num)
+        p = pow(10.0, quantityNum(function(num))) + function(num)
         k += quantityNum(function(num))
         while (k > n) {
             k--
