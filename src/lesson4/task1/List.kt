@@ -124,10 +124,9 @@ fun abs(v: List<Double>): Double = sqrt(v.sumByDouble { sqr(it) })
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double {
-    return if (list.isEmpty()) 0.0
-    else list.sum() / list.size
-}
+fun mean(list: List<Double>): Double =
+        if (list.isEmpty()) 0.0
+        else list.sum() / list.size
 
 /**
  * Средняя
@@ -150,10 +149,9 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
-fun times(a: List<Double>, b: List<Double>): Double {
-    val c = (0 until a.size).sumByDouble { a[it] * b[it] }
-    return c
-}
+fun times(a: List<Double>, b: List<Double>): Double =
+        (0 until a.size).sumByDouble { a[it] * b[it] }
+
 
 /**
  * Средняя
@@ -163,10 +161,8 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double {
-    val pX = (0 until p.size).sumByDouble { p[it] * pow(x, it) }
-    return pX
-}
+fun polynom(p: List<Double>, x: Double): Double =
+        (0 until p.size).sumByDouble { p[it] * pow(x, it) }
 
 /**
  * Средняя
@@ -228,10 +224,10 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
 fun convert(n: Int, base: Int): List<Int> {
     var num = n
     val list = mutableListOf<Int>()
-    while (num > 0) {
+    do {
         list.add(num % base)
         num /= base
-    }
+    } while (num > 0)
     return list.reversed()
 }
 
@@ -244,7 +240,7 @@ fun convert(n: Int, base: Int): List<Int> {
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
 fun convertToString(n: Int, base: Int): String =
-    convert(n, base).map{if (it > 9) (it - 10 + 'a'.toInt()).toChar() else it}.joinToString("")
+        convert(n, base).map { if (it > 9) (it - 10 + 'a'.toInt()).toChar() else it }.joinToString("")
 
 /**
  * Средняя
@@ -254,10 +250,12 @@ fun convertToString(n: Int, base: Int): String =
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
 fun decimal(digits: List<Int>, base: Int): Int {
-    if (digits.size == 1) return 1
-    val sum = (0 until digits.size).sumBy {pow(base.toDouble(), digits.size - it - 1).toInt() * digits[it]}
-    return sum
+    var result = 0
+    digits.reversed().forEachIndexed { index, i -> result += i * pow(base.toDouble(), index).toInt() }
+    return result
 }
+
+
 /**
  * Сложная
  *
@@ -268,7 +266,7 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Например: str = "13c", base = 14 -> 250
  */
 fun decimalFromString(str: String, base: Int): Int {
-    val sum = str.toList().map {if (it >= 'a') it - 'a' + 10 else it - '0'}
+    val sum = str.toList().map { if (it >= 'a') it - 'a' + 10 else it - '0' }
     return decimal(sum, base)
 }
 
@@ -280,13 +278,13 @@ fun decimalFromString(str: String, base: Int): Int {
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun transformation (n :Int, str: String): String {
+fun transformation(n: Int, str: String): String {
     var rimNum = ""
     var temp = n
     when (temp != 0) {
         temp == 1 -> rimNum += str[0]
         temp == 2 -> rimNum += str[0].plus(str[0].toString())
-        temp == 3 -> rimNum += str[0].plus(str[0]+str[0].toString())
+        temp == 3 -> rimNum += str[0].plus(str[0] + str[0].toString())
         temp == 4 -> rimNum += str[1] + str[0].toString()
         temp == 5 -> rimNum += str[1]
         temp == 6 -> rimNum += str[0] + str[1].toString()
@@ -327,7 +325,7 @@ fun russian(n: Int): String {
     val exceptions = listOf("", "один", "две", "три", "четыре", "пят", "шест", "сем", "восем", "девят", "надцать ")
     val units = listOf("", "один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
     val dicker = listOf("", "десять ", "двадцать ", "тридцать ", "сорок ", "пятьдесят ", "шестьдесят ", "семьдесят ", "восьмедесят ", "девяносто ")
-    val hundreds = listOf("", "сто ", "двести ", "триста ", "четыресто ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
+    val hundreds = listOf("", "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
     val unitsOfThousands = listOf("", "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
     var result = ""
     var num = n
@@ -336,14 +334,14 @@ fun russian(n: Int): String {
         var d = 0 //Это число отвечает за исключения, то есть если у нас будут exceptions он будет увеличивать разряд "k" и делить num на 10
         val digit = num % 10
         if (num % 100 in 11..19) {
-            when(k) {
+            when (k) {
                 1 -> {
-                      result = exceptions[num % 10] + exceptions[10] + result
-                      d++
+                    result = exceptions[num % 10] + exceptions[10] + result
+                    d++
                 }
                 4 -> {
-                      result = exceptions[num % 10] + exceptions[10] + "тысяч " + result
-                      d++
+                    result = exceptions[num % 10] + exceptions[10] + "тысяч " + result
+                    d++
                 }
             }
         } else when (k) {
