@@ -99,7 +99,7 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
     val res0 = mapA + mapB
-    var result = mutableMapOf<String, String>()
+    val result = mutableMapOf<String, String>()
     mapA.forEach { if (it.value != res0[it.key]) result[it.key] = "${it.value}, ${res0[it.key]}" }
     return res0 + result
 }
