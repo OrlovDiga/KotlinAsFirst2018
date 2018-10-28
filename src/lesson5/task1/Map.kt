@@ -2,6 +2,7 @@
 
 package lesson5.task1
 
+import lesson7.task1.countSubstrings
 import lesson9.task2.sumNeighbours
 
 /**
@@ -103,7 +104,6 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
     return res0 + result
 }
 
-
 /**
  * Простая
  *
@@ -142,10 +142,8 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-    var temp = mutableMapOf<String, List<Double>>()
-     stockPrices.groupingBy { it.first }.
-}
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> =
+        stockPrices.groupBy({ it.first }, { it.second }).mapValues { it.value.average() }
 
 /**
  * Средняя
@@ -162,10 +160,8 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
-    val res = stuff.filter { it.value.first == kind }
-    return res.minBy { it.value.second }.toString()
-}
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? =
+        stuff.filter { it.value.first == kind }.minBy { (_, data) -> data.second }?.component1()
 
 /**
  * Сложная
@@ -240,7 +236,7 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = word.toLowerCase().
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 fun extractRepeats(list: List<String>): Map<String, Int> {
-    var res = mutableMapOf<String, Int>()
+    val res = mutableMapOf<String, Int>()
     list.forEach { res[it] = (res[it] ?: 0) + 1 }
     return res.filter { it.value > 1 }
 }
@@ -254,9 +250,15 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean = TODO()
-//    words.map { it.toSortedSet() }
-//}
+fun hasAnagrams(words: List<String>): Boolean {
+    for (i in words) {
+        for (j in words) {
+            if (i.toList() != j.toList() && i.toList().sorted() == j.toList().sorted())
+                return true
+        }
+    }
+    return false
+}
 
 /**
  * Сложная
