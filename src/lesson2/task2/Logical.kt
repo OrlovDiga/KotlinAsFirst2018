@@ -1,10 +1,10 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task2
 
 import lesson1.task1.sqr
 import lesson1.task1.trackLength
 import kotlin.math.abs
-import kotlin.math.sqrt
 
 /**
  * Пример
@@ -21,7 +21,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
 fun isNumberHappy(number: Int): Boolean =
-    number % 10 + number % 100 / 10 == number / 1000 + number / 100 % 10
+        number % 10 + number % 100 / 10 == number / 1000 + number / 100 % 10
 
 /**
  * Простая
@@ -42,11 +42,11 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
  */
 fun daysInMonth(month: Int, year: Int): Int =
         when {
-             (month == 4 || month == 6 || month == 9 || month == 11) -> 30
-             (month == 2 && year % 400 == 0) -> 29
-             (month == 2 && year % 100 != 0 && year % 4 == 0) -> 29
-             (month == 2) -> 28
-             else -> 31
+            (month == 4 || month == 6 || month == 9 || month == 11) -> 30
+            (month == 2 && year % 400 == 0) -> 29
+            (month == 2 && year % 100 != 0 && year % 4 == 0) -> 29
+            (month == 2) -> 28
+            else -> 31
         }
 
 /**
@@ -71,5 +71,5 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
         (a * b <= r * s && (a <= r && b <= s || a <= s && b <= r)) ||
-        (a * c <= r * s && (a <= r && c <= s || a <= s && c <= r)) ||
-        (b * c <= r * s && (c <= r && b <= s || c <= s && b <= r))
+                (a * c <= r * s && (a <= r && c <= s || a <= s && c <= r)) ||
+                (b * c <= r * s && (c <= r && b <= s || c <= s && b <= r))

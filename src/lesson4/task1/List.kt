@@ -328,40 +328,23 @@ fun russian(n: Int): String {
     val hundreds = listOf("", "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
     val unitsOfThousands = listOf("", "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
     var result = ""
-    var num = n
-    var k = 1 // разряд
-    while (num != 0) {
-        var d = 0 //Это число отвечает за исключения, то есть если у нас будут exceptions он будет увеличивать разряд "k" и делить num на 10
-        val digit = num % 10
-        if (num % 100 in 11..19) {
-            when (k) {
-                1 -> {
-                    result = exceptions[num % 10] + exceptions[10] + result
-                    d++
-                }
-                4 -> {
-                    result = exceptions[num % 10] + exceptions[10] + "тысяч " + result
-                    d++
-                }
+    var aaa = n % 1000
+    var bbb = n / 1000
+    result = if (aaa / 10 % 10 == 1)
+        hundreds[aaa / 100] + exceptions[aaa % 10] + exceptions[10]
+    else
+        hundreds[aaa / 100] + dicker[aaa / 10 % 10] + units[aaa % 10]
+
+    if (bbb > 0)
+        if (bbb % 100 in 11..19)
+            result = hundreds[bbb / 100] + exceptions[bbb % 10] + exceptions[10] + "тысяч " + result
+        else {
+            result = when {
+                bbb % 10 == 1 -> unitsOfThousands[bbb % 10] + "тысяча " + result
+                bbb % 10 in 2..4 -> unitsOfThousands[bbb % 10] + "тысячи " + result
+                else -> "тысяч " + unitsOfThousands[bbb % 10] + result
             }
-        } else when (k) {
-            1 -> result = units[digit] + result
-            2 -> result = dicker[digit] + result
-            3 -> result = hundreds[digit] + result
-            4 -> result = when (digit) {
-                in 5..9 -> unitsOfThousands[digit] + "тысяч " + result
-                in 1..4 -> unitsOfThousands[digit] + "тысячи " + result
-                1 -> unitsOfThousands[digit] + "тысяча " + result
-                else -> "тысяч " + result
-            }
+            result = hundreds[bbb / 100] + dicker[bbb / 10 % 10] + result
         }
-        num /= 10
-        if (k == 4) k = 1
-        k++
-        if (d == 1) {
-            num /= 10
-            k += d
-        }
-    }
     return result.trim()
 }

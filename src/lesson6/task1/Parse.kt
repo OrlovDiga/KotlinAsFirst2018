@@ -2,6 +2,11 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+
+val MONTHS = listOf("", "января", "февраля", "марта", "апреля", "мая", "июня",
+        "июля", "августа", "сентября", "октября", "ноября", "декабря")
+
 /**
  * Пример
  *
@@ -28,7 +33,7 @@ fun twoDigitStr(n: Int) = if (n in 0..9) "0$n" else "$n"
 
 /**
  * Пример
- *
+ ф*
  * Дано seconds -- время в секундах, прошедшее с начала дня.
  * Вернуть текущее время в виде строки в формате "ЧЧ:ММ:СС".
  */
@@ -49,12 +54,10 @@ fun main(args: Array<String>) {
         val seconds = timeStrToSeconds(line)
         if (seconds == -1) {
             println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        }
-        else {
+        } else {
             println("Прошло секунд с начала суток: $seconds")
         }
-    }
-    else {
+    } else {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
@@ -71,7 +74,17 @@ fun main(args: Array<String>) {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    if (!kotlin.text.Regex("^[0-9]{1,2}\\s[а-я]{3,7}\\s[0-9]*").containsMatchIn(str))
+        return ""
+    val temp = str.split(" ")
+    if (!MONTHS.contains(temp[1]))
+        return ""
+    val month = MONTHS.indexOf(temp[1])
+    if (daysInMonth(month, temp[2].toInt()) < temp[0].toInt() && temp[0].toInt() > 0)
+        return ""
+    return String.format("%02d.%02d.%d", temp[0].toInt(), month, temp[2].toInt())
+}
 
 /**
  * Средняя
@@ -83,7 +96,18 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    if (!kotlin.text.Regex("^[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{4}").containsMatchIn(digital))
+        return ""
+    val temp = digital.split(".")
+    if (MONTHS.elementAtOrNull(temp[1].toInt() - 1) == null)
+        return ""
+    val month = MONTHS[temp[1].toInt()]
+    if (daysInMonth(temp[1].toInt(), temp[2].toInt()) < temp[0].toInt() && temp[0].toInt() > 0)
+        return ""
+    return String.format("%d %s %s", temp[0].toInt(), month, temp[2])
+
+}
 
 /**
  * Средняя
@@ -97,7 +121,11 @@ fun dateDigitToStr(digital: String): String = TODO()
  * Все символы в номере, кроме цифр, пробелов и +-(), считать недопустимыми.
  * При неверном формате вернуть пустую строку
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String =
+        if (Regex("""^(\+|)[0-9]+""").matches(Regex("""(\s|\(|\)|-)""").replace(phone, "")))
+            Regex("""(\s|\(|\)|-)""").replace(phone, "")
+        else
+            ""
 
 /**
  * Средняя
@@ -109,7 +137,12 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+
+    for (i in jumps.split(" "))
+        if (Regex("""\d+""").matches(i))
+
+}
 
 /**
  * Сложная
