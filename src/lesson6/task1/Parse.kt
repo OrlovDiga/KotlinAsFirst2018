@@ -106,7 +106,6 @@ fun dateDigitToStr(digital: String): String {
     if (daysInMonth(temp[1].toInt(), temp[2].toInt()) < temp[0].toInt() && temp[0].toInt() > 0)
         return ""
     return String.format("%d %s %s", temp[0].toInt(), month, temp[2])
-
 }
 
 /**
@@ -126,7 +125,6 @@ fun flattenPhoneNumber(phone: String): String =
             Regex("""(\s|\(|\)|-)""").replace(phone, "")
         else
             ""
-
 /**
  * Средняя
  *
@@ -137,12 +135,13 @@ fun flattenPhoneNumber(phone: String): String =
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int {
+fun bestLongJump(jumps: String): Int = TODO()
 
-    for (i in jumps.split(" "))
-        if (Regex("""\d+""").matches(i))
-
-}
+//
+//    for (i in jumps.split(" "))
+//        if (Regex("""\d+""").matches(i))
+//
+//}
 
 /**
  * Сложная
