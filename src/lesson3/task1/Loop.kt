@@ -3,16 +3,17 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
+import java.lang.Math.pow
 import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.sqrt
 
-fun pow(num: Double, y: Int): Double {
-    var z = 1.0
-    for (i in 1..y)
-        z *= num
-    return z
-}
+//fun pow(num: Double, y: Int): Double {
+//    var z = 1.0
+//    for (i in 1..y)
+//        z *= num
+//    return z
+//}
 
 fun quantityNum(num: Int): Int {
     var k = 0
@@ -125,7 +126,7 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int =  m * n / algEvklida(m, n)
+fun lcm(m: Int, n: Int): Int = m * n / algEvklida(m, n)
 
 /**
  * Простая
@@ -210,20 +211,21 @@ fun collatzSteps(x: Int): Int {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-
-
-fun sin(x: Double, eps: Double): Double {
+fun sinAndcos (n: Int, x: Double, eps: Double ): Double {
     var p = 0.0
-    var n = 1 //
+    var n = n
     var k = 1
     val num = x % (2 * PI)
-    while (abs((pow(num, n) / factorial(n))) >= eps) {
-        p += k * (pow(num, n) / factorial(n))
+    while (abs((pow(num, n.toDouble()) / factorial(n))) >= eps) {
+        p += k * (pow(num, n.toDouble()) / factorial(n))
         n += 2
         k *= -1
     }
     return p
 }
+// Я не знаю, что вы имели ввиду, но я тут чуть чуть переделал - написал одну функцию для двух задач.
+
+fun sin(x: Double, eps: Double): Double = sinAndcos(1, x, eps)
 
 /**
  * Средняя
@@ -232,18 +234,7 @@ fun sin(x: Double, eps: Double): Double {
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double {
-    var p = 0.0
-    var n = 0
-    var k = 1
-    val num = x % (2 * PI)
-    while (abs((pow(num, n) / factorial(n))) >= eps) {
-        p += k * (pow(num, n) / factorial(n))
-        n += 2
-        k *= -1
-    }
-    return p
-}
+fun cos(x: Double, eps: Double): Double = sinAndcos(0, x, eps)
 
 /**
  * Средняя
@@ -303,12 +294,12 @@ fun hasDifferentDigits(n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun sequenceDigit(n: Int, function: (Int) -> Int ): Int {
+fun sequenceDigit(n: Int, function: (Int) -> Int): Int {
     var k = 1 // количество цифр в чисел
     var p = 1.0 // последовательность
     var num = 2
     while (n != k) {
-        p = pow(10.0, quantityNum(function(num))) + function(num)
+        p = pow(10.0, (quantityNum(function(num))) + function(num).toDouble())
         k += quantityNum(function(num))
         while (k > n) {
             k--
