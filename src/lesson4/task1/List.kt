@@ -4,7 +4,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
-import lesson3.task1.pow
+import java.lang.Math.pow
 import kotlin.math.sqrt
 
 /**
@@ -162,7 +162,7 @@ fun times(a: List<Double>, b: List<Double>): Double =
  * Значение пустого многочлена равно 0.0 при любом x.
  */
 fun polynom(p: List<Double>, x: Double): Double =
-        (0 until p.size).sumByDouble { p[it] * pow(x, it) }
+        (0 until p.size).sumByDouble { p[it] * pow(x, it.toDouble()) }
 
 /**
  * Средняя
@@ -251,7 +251,7 @@ fun convertToString(n: Int, base: Int): String =
  */
 fun decimal(digits: List<Int>, base: Int): Int {
     var result = 0
-    digits.reversed().forEachIndexed { index, i -> result += i * pow(base.toDouble(), index).toInt() }
+    digits.reversed().forEachIndexed { index, i -> result += i * pow(base.toDouble(), index.toDouble()).toInt() }
     return result
 }
 

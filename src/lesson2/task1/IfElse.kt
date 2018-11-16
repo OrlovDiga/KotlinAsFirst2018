@@ -115,8 +115,8 @@ fun timeForHalfWay(t1: Double, v1: Double,
 
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
-                       rookX2: Int, rookY2: Int): Int {
-    return if (kingX == rookX1 && kingY == rookY2 || kingX == rookX2 && kingY == rookY1)
+                       rookX2: Int, rookY2: Int): Int =
+    if (kingX == rookX1 && kingY == rookY2 || kingX == rookX2 && kingY == rookY1)
         3
     else if (equaliteOfPairsOfNumbers(kingX, rookX1, kingY, rookY1))
         1
@@ -124,7 +124,7 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
         2
     else
         0
-}
+
 
 /**
  * Простая
@@ -138,15 +138,15 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
  */
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
-                          bishopX: Int, bishopY: Int): Int {
-    return if (equaliteOfPairsOfNumbers(kingX, rookX, kingY, rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY)))
+                          bishopX: Int, bishopY: Int): Int =
+    if (equaliteOfPairsOfNumbers(kingX, rookX, kingY, rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY)))
         3
     else if (abs(kingX - bishopX) == abs(kingY - bishopY))
         2
     else if (equaliteOfPairsOfNumbers(kingX, rookX, kingY, rookY))
         1
     else 0
-}
+
 
 /**
  * Простая
@@ -157,16 +157,21 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    return if (a + b < c || a + c < b || b + c < a)
-        -1
-    else {
-        if ((sqr(a) + sqr(b)) < sqr(c) || (sqr(a) + sqr(c)) < sqr(b) || (sqr(c) + sqr(b)) < sqr(a))
-             2
-        else if ((sqr(a) + sqr(b)) == sqr(c) || (sqr(a) + sqr(c)) == sqr(b) || (sqr(c) + sqr(b)) == sqr(a))
-             1
-        else 0
+    val max = maxOf(a, b, c)
+    val min = minOf(a, b, c)
+    val mid = a + b + c - min - max
+    if (max > mid + min)
+        return -1
+    val value = sqr(max) - sqr(min) - sqr(mid)
+    var result = -1
+    when (value) {
+        0.0 -> result = 1
+        in 0.0..10000.0 -> result = 2
+        in -10000.0..0.0 -> result = 0
     }
+    return result
 }
+
 
 /**
  * Средняя

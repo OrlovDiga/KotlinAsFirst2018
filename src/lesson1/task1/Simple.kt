@@ -1,21 +1,17 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson1.task1
 
+import java.lang.Math.pow
 import kotlin.math.*
 
-fun kolichestvoGodov(years : Double) =
-            years * years * years
+fun kolichestvoGodov(years : Double) = pow(years, 3.toDouble())
 
-    const val SECOND_IN_HOUR = 3600
-    const val SECOND_IN_MINUTES = 60
-    const val VERSHOKS_IN_SAGENES = 48
-    const val VERSHOCK_IN_ARSHHINS = 16
-    const val METRS_IN_VERCHOKS = 0.04445
-    const val MINUTES_IN_HOURS = 60
-    const val YEARS = 3
-    const val GRADUS_IN_RADIAN = 0.0174533
-    const val MINUTES_IN_RADIAN = 0.000290888
-    const val SECOND_IN_RADIAN = 4.84814e-6
+const val SECOND_IN_HOUR = 3600
+const val SECOND_IN_MINUTES = 60
+const val VERSHOKS_IN_SAGENES = 48
+const val VERSHOCK_IN_ARSHHINS = 16
+const val METRS_IN_VERCHOKS = 0.04445
+const val MINUTES_IN_HOURS = 60
 
 /**
  * Пример
@@ -83,7 +79,7 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int =
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
 fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
-        (VERSHOKS_IN_SAGENES * sagenes + arshins * VERSHOCK_IN_ARSHHINS + vershoks) * METRS_IN_VERCHOKS;
+        (VERSHOKS_IN_SAGENES * sagenes + arshins * VERSHOCK_IN_ARSHHINS + vershoks) * METRS_IN_VERCHOKS
 
 /**
  * Тривиальная
@@ -147,7 +143,6 @@ fun numberRevert(number: Int): Int {
     while (seel > 0) {
         finiteNumber = finiteNumber * 10 + seel % 10
         seel /= 10
-
     }
     return finiteNumber
 }
