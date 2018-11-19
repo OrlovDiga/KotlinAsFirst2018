@@ -211,7 +211,7 @@ fun collatzSteps(x: Int): Int {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sinAndcos (n: Int, x: Double, eps: Double ): Double {
+fun sinAndCos (n: Int, x: Double, eps: Double ): Double {
     var p = 0.0
     var n = n
     var k = 1
@@ -225,7 +225,7 @@ fun sinAndcos (n: Int, x: Double, eps: Double ): Double {
 }
 // Я не знаю, что вы имели ввиду, но я тут чуть чуть переделал - написал одну функцию для двух задач.
 
-fun sin(x: Double, eps: Double): Double = sinAndcos(1, x, eps)
+fun sin(x: Double, eps: Double): Double = sinAndCos(1, x, eps)
 
 /**
  * Средняя
@@ -234,7 +234,7 @@ fun sin(x: Double, eps: Double): Double = sinAndcos(1, x, eps)
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double = sinAndcos(0, x, eps)
+fun cos(x: Double, eps: Double): Double = sinAndCos(0, x, eps)
 
 /**
  * Средняя

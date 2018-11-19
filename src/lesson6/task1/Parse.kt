@@ -35,7 +35,7 @@ fun twoDigitStr(n: Int) = if (n in 0..9) "0$n" else "$n"
 
 /**
  * Пример
- ф*
+ф*
  * Дано seconds -- время в секундах, прошедшее с начала дня.
  * Вернуть текущее время в виде строки в формате "ЧЧ:ММ:СС".
  */
@@ -124,10 +124,11 @@ fun dateDigitToStr(digital: String): String {
  */
 fun flattenPhoneNumber(phone: String): String =
         if (Regex("""^(\+|)[0-9]+""").matches(Regex("""(\s|\(|\)|-)""")
-                                             .replace(phone, "")))
+                        .replace(phone, "")))
             Regex("""(\s|\(|\)|-)""").replace(phone, "")
         else
             ""
+
 /**
  * Средняя
  *
@@ -140,12 +141,12 @@ fun flattenPhoneNumber(phone: String): String =
  */
 fun bestLongJump(jumps: String): Int? {
     val k = jumps.replace(Regex("""[%\-]"""), "")
-                        .replace(Regex("""\s+"""), " ")
+            .replace(Regex("""\s+"""), " ")
     if (!Regex("""(\d+ *)+""").matches(k))
         return -1
-        return k.split(" ")
-                .map { it.toInt() }
-                .max()
+    return k.split(" ")
+            .map { it.toInt() }
+            .max()
 }
 
 /**
@@ -166,7 +167,9 @@ fun bestHighJump(jumps: String): Int {
             if (jumps[i + 1] == '+' && jumps[i].toInt() > max)
                 max = jumps[i].toInt()
         }
-    } catch (e: Exception) { -1 }
+    } catch (e: Exception) {
+        -1
+    }
     return max
 }
 
@@ -184,12 +187,14 @@ fun plusMinus(expression: String): Int {
     var result = 0
     try {
         for (i in 0..expression.length step 2) {
-            if (expression[i+1] == '-')
+            if (expression[i + 1] == '-')
                 result -= expression[i].toInt()
             else
                 result += expression[i].toInt()
         }
-    } catch (e: IllegalArgumentException) {"Упс, вы совершили ошибку!"}
+    } catch (e: IllegalArgumentException) {
+        "Упс, вы совершили ошибку!"
+    }
     return result
 }
 
@@ -203,7 +208,7 @@ fun plusMinus(expression: String): Int {
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
 fun firstDuplicateIndex(str: String): Int {
-   var kek = str.split(" ")
+    var kek = str.split(" ")
     var index = 0
     try {
         for (i in 0 until kek.size) {
@@ -211,9 +216,12 @@ fun firstDuplicateIndex(str: String): Int {
                 return index
             index += kek[i].length + 1
         }
-    } catch (e : Exception) {return -1}
+    } catch (e: Exception) {
+        return -1
+    }
     return index
 }
+
 /**
  * Сложная
  *
@@ -227,17 +235,17 @@ fun firstDuplicateIndex(str: String): Int {
  */
 fun mostExpensive(description: String): String? {
     return try {
-        val allList = description.replace(";", "")
-                                              .split(" ")
-        val maxPrice = allList.filter { Regex("""\d+.*\d+""").matches(it) }
-                                     .map { it.toDouble() }
-                                     .max().toString()
+        val allList = description.replace(";", "").split(" ")
+        val maxPrice =
+                allList
+                        .filter { Regex("""\d+.*\d+""").matches(it) }
+                        .map { it.toDouble() }
+                        .max().toString()
         allList[allList.indexOf(maxPrice) - 1] // находит название товара по индексу максимальной цены -1
     } catch (e: Exception) {
         ""
     }
 }
-//Хочу задать вопрос - стоит ли сокращать код как можно больше, или лучше оставить для читабельности ?
 
 /**
  * Сложная
@@ -251,24 +259,34 @@ fun mostExpensive(description: String): String? {
  * Вернуть -1, если roman не является корректным римским числом
  */
 fun fromRoman(roman: String): Int = TODO()
-//    val allNumber = mapOf("M" to 1000, "CM" to 900, "D" to 500,
-//            "CD" to 400, "C" to 100, "XC" to 90, "L" to 50, "XL" to 40,
-//            "X" to 10, "IX" to 9, "V" to 5, "IV" to 4, "I" to 1)
+////    val allNumber = mapOf("M" to 1000, "CM" to 900, "D" to 500,
+////            "CD" to 400, "C" to 100, "XC" to 90, "L" to 50, "XL" to 40,
+////            "X" to 10, "IX" to 9, "V" to 5, "IV" to 4, "I" to 1)
 //    val allNumber = mapOf("CM" to 900, "M" to 1000, "CD" to 400, "D" to 500,  "XC" to 90,
 //             "C" to 100, "XL" to 40, "L" to 50, "IX" to 9,
 //            "X" to 10, "IV" to 4, "V" to 5, "I" to 1)
-//    Regex("""^M*(CM|D)?C{0,3}(XC|L|XL)?X{0,3}(IX|V|IV)?I{0,3}""").
-//
 //    var result = 0
-//    for (i in 0.. allNumber.size) {
-//        var temp = allNumber.keys
-//        var temp1 = temp.first()
-//        while (roman.contains(temp1))
-//            roman.replace(temp1, "")
-//    }
-//
+//    try {
+//         result = Regex("""^M*(CM|D)?C{0,3}(XC|L|XL)?X{0,3}(IX|V|IV)?I{0,3}""").findAll(roman).map { allNumber[it.toString()] }!!.sumBy { it!!.toInt() + 0}
+////        if (!Regex("""^M*(CM|D)?C{0,3}(XC|L|XL)?X{0,3}(IX|V|IV)?I{0,3}""").matches(roman))
+////            return -1
+////        val result = 0
+////        for (i in 0..roman.lastIndex) {
+////            //if (roman[i]. in allNumber)
+////            when {
+////                i != roman.lastIndex && roman[i].toString() + roman[i + 1].toString() in allNumber -> {
+////                    roman.remove
+////                }
+////                roman[i].toString() in allNumber -> {
+////
+////                }
+////            }
+////        }
+//    } catch (e: Exception) { -1 }
+//    return result
 //}
-//ne dodelano
+
+
 /**
  * Очень сложная
  *

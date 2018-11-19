@@ -280,7 +280,7 @@ fun decimalFromString(str: String, base: Int): Int {
  */
 fun transformation(n: Int, str: String): String {
     var rimNum = ""
-    var temp = n
+    val temp = n
     when (temp != 0) {
         temp == 1 -> rimNum += str[0]
         temp == 2 -> rimNum += str[0].plus(str[0].toString())
@@ -328,8 +328,8 @@ fun russian(n: Int): String {
     val hundreds = listOf("", "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
     val unitsOfThousands = listOf("", "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
     var result = ""
-    var aaa = n % 1000
-    var bbb = n / 1000
+    val aaa = n % 1000
+    val bbb = n / 1000
     result = if (aaa / 10 % 10 == 1)
         hundreds[aaa / 100] + exceptions[aaa % 10] + exceptions[10]
     else
