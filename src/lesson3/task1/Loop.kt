@@ -8,13 +8,6 @@ import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.sqrt
 
-//fun pow(num: Double, y: Int): Double {
-//    var z = 1.0
-//    for (i in 1..y)
-//        z *= num
-//    return z
-//}
-
 fun quantityNum(num: Int): Int {
     var k = 0
     var n = abs(num)
@@ -213,12 +206,12 @@ fun collatzSteps(x: Int): Int {
  */
 fun sinAndCos (n: Int, x: Double, eps: Double ): Double {
     var p = 0.0
-    var n = n
+    var n2 = n
     var k = 1
     val num = x % (2 * PI)
-    while (abs((pow(num, n.toDouble()) / factorial(n))) >= eps) {
-        p += k * (pow(num, n.toDouble()) / factorial(n))
-        n += 2
+    while (abs((pow(num, n2.toDouble()) / factorial(n2))) >= eps) {
+        p += k * (pow(num, n2.toDouble()) / factorial(n2))
+        n2 += 2
         k *= -1
     }
     return p
