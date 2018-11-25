@@ -4,7 +4,7 @@ package lesson1.task1
 import java.lang.Math.pow
 import kotlin.math.*
 
-fun kolichestvoGodov(years : Double) = pow(years, 3.toDouble())
+fun quanityYears(years : Double) = pow(years, 3.toDouble())
 
 const val SECOND_IN_HOUR = 3600
 const val SECOND_IN_MINUTES = 60
@@ -127,7 +127,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double =
-        initial.toDouble() * kolichestvoGodov((1 + (percent.toDouble() / 100)))
+        initial.toDouble() * quanityYears((1 + (percent.toDouble() / 100)))
 
 
 

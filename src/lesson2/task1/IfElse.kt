@@ -68,13 +68,12 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String {
-    return if (age % 10 == 1 && age % 100 != 11)
+fun ageDescription(age: Int): String =
+    if (age % 10 == 1 && age % 100 != 11)
         "$age год"
     else if (age % 10 in 2..4 && age % 100 !in 12..14)
         "$age года"
     else "$age лет"
-}
 
 /**
  * Простая
@@ -86,7 +85,7 @@ fun ageDescription(age: Int): String {
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
-    var s: Double = (v1 * t1 + v2 * t2 + v3 * t3) / 2 //Половина пути
+    var s = (v1 * t1 + v2 * t2 + v3 * t3) / 2 //Половина пути
     var t: Double
     if (s <= v1 * t1)
         t = s / v1
@@ -125,7 +124,6 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
     else
         0
 
-
 /**
  * Простая
  *
@@ -147,7 +145,6 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
         1
     else 0
 
-
 /**
  * Простая
  *
@@ -163,15 +160,14 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     if (max > mid + min)
         return -1
     val value = sqr(max) - sqr(min) - sqr(mid)
-    var result = -1
-    when (value) {
-        0.0 -> result = 1
-        in 0.0..10000.0 -> result = 2
-        in -10000.0..0.0 -> result = 0
+    return when (value) {
+        0.0 -> 1
+        in 0.0..10000.0 -> 2
+        in -10000.0..0.0 -> 0
+        else -> -1
     }
-    return result
-}
 
+}
 
 /**
  * Средняя

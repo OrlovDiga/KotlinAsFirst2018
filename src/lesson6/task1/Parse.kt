@@ -5,6 +5,7 @@ package lesson6.task1
 import lesson2.task2.daysInMonth
 import java.lang.Exception
 import java.lang.IllegalArgumentException
+import java.lang.IllegalStateException
 
 val MONTHS = listOf("", "января", "февраля", "марта", "апреля", "мая", "июня",
         "июля", "августа", "сентября", "октября", "ноября", "декабря")
@@ -162,14 +163,14 @@ fun bestLongJump(jumps: String): Int? {
 fun bestHighJump(jumps: String): Int {
     jumps.split(" ")
     var max = -1
+
     try {
         for (i in 0..jumps.length step 2) {
             if (jumps[i + 1] == '+' && jumps[i].toInt() > max)
                 max = jumps[i].toInt()
         }
-    } catch (e: Exception) {
-        -1
-    }
+    } catch (e: Exception) { -1 }
+
     return max
 }
 
@@ -216,9 +217,7 @@ fun firstDuplicateIndex(str: String): Int {
                 return index
             index += kek[i].length + 1
         }
-    } catch (e: Exception) {
-        return -1
-    }
+    } catch (e: Exception) { -1 }
     return index
 }
 
@@ -236,15 +235,12 @@ fun firstDuplicateIndex(str: String): Int {
 fun mostExpensive(description: String): String {
     return try {
         val allList = description.replace(";", "").split(" ")
-        val maxPrice =
-                allList
+        val maxPrice = allList
                         .filter { Regex("""\d+.*\d+""").matches(it) }
                         .map { it.toDouble() }
                         .max().toString()
         allList[allList.indexOf(maxPrice) - 1] // находит название товара по индексу максимальной цены -1
-    } catch (e: Exception) {
-        ""
-    }
+    } catch (e: Exception) { "" }
 }
 
 /**
@@ -258,34 +254,27 @@ fun mostExpensive(description: String): String {
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
-////    val allNumber = mapOf("M" to 1000, "CM" to 900, "D" to 500,
-////            "CD" to 400, "C" to 100, "XC" to 90, "L" to 50, "XL" to 40,
-////            "X" to 10, "IX" to 9, "V" to 5, "IV" to 4, "I" to 1)
-//    val allNumber = mapOf("CM" to 900, "M" to 1000, "CD" to 400, "D" to 500,  "XC" to 90,
-//             "C" to 100, "XL" to 40, "L" to 50, "IX" to 9,
-//            "X" to 10, "IV" to 4, "V" to 5, "I" to 1)
-//    var result = 0
-//    try {
-//         result = Regex("""^M*(CM|D)?C{0,3}(XC|L|XL)?X{0,3}(IX|V|IV)?I{0,3}""").findAll(roman).map { allNumber[it.toString()] }!!.sumBy { it!!.toInt() + 0}
-////        if (!Regex("""^M*(CM|D)?C{0,3}(XC|L|XL)?X{0,3}(IX|V|IV)?I{0,3}""").matches(roman))
-////            return -1
-////        val result = 0
-////        for (i in 0..roman.lastIndex) {
-////            //if (roman[i]. in allNumber)
-////            when {
-////                i != roman.lastIndex && roman[i].toString() + roman[i + 1].toString() in allNumber -> {
-////                    roman.remove
-////                }
-////                roman[i].toString() in allNumber -> {
-////
-////                }
-////            }
-////        }
-//    } catch (e: Exception) { -1 }
-//    return result
-//}
+fun fromRoman(roman: String): Int {
+    val allNumber = mapOf("CM" to 900, "M" to 1000, "CD" to 400, "D" to 500,  "XC" to 90,
+            "C" to 100, "XL" to 40, "L" to 50, "IX" to 9,
+            "X" to 10, "IV" to 4, "V" to 5, "I" to 1)
+    var number = roman
+    var result = 0
 
+    try {
+        while (number != "") {
+            if (number.length > 1 && number.substring(0, 2) in allNumber) {
+                result += allNumber[number.substring(0, 2)]!!
+                number = number.drop(2)
+            } else {
+                result += allNumber[number[0].toString()]!!
+                number = number.drop(1)
+            }
+        }
+    } catch (e: Exception) { -1 }
+
+    return result
+}
 
 /**
  * Очень сложная
@@ -323,4 +312,29 @@ fun fromRoman(roman: String): Int = TODO()
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+fun computeDeviceCells(cells: Int, commands: String, limit: Int) {
+    var kak = mutableListOf<Int>()
+    var lol = cells.toString()
+    while (lol != "") {
+        kak.add(lol.toInt() % 10)
+        lol.dropLast(1)
+    }
+    var index = kak.size / 2
+    var numOfActions = 0
+}
+//    while (numOfActions != limit || com)
+//    if (!Regex("""[<>+\-\[\] ]*""").matches(commands)) throw IllegalArgumentException()
+//        while (commands != " " && ) {
+//            when {
+//                commands[0] == '>' -> index--
+//                commands[0] == '<' -> index++
+//                commands[0] == '-' -> kak[index]--
+//                commands[0] == '+' -> kak[index]++
+//                commands[0] == ']' && kak[index] != 0 ->
+//                commands[0] == '[' && kak[index] == 0 -> commands.dropWhile { commands[0] != ']' }
+//                    commands[0] == ' '
+//                -> println("KEK_CHEBUREK")
+//            }
+//            commands.drop(1)
+//        }
+

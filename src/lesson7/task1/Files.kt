@@ -2,7 +2,8 @@
 
 package lesson7.task1
 
-import java.io.File
+import kotlinx.html.dom.write
+import java.io.*
 
 /**
  * Пример
@@ -54,8 +55,8 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
-
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> =
+    substrings.map{ it to Regex(it.toLowerCase()).findAll(File(inputName).readText().toLowerCase()).toList().size }.toMap()
 
 /**
  * Средняя
@@ -71,7 +72,9 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val change = mapOf("ы" to "и", "я" to "а", "ю" to "у", "Ы" to "И", "Я" to "А", "Ю" to "У")
+    File(outputName).writeText(File(inputName).readText()
+                    .replace(Regex("""(?<=[щЩшШчЧжЖ])[ЮюЯяыЫ]""")) { change[it.value].toString() })
 }
 
 /**
@@ -92,9 +95,35 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
-}
+    var max = File(inputName).readLines().max()!!.length
+//    print(max)
+//    File(outputName).bufferedWriter().use{
+//       File(outputName).writeText( File(inputName).readLines().forEach { it.padStart(max - it.length / 2, ' ')}))
+//      for (i in File(inputName).readLines()) {
+//          it.write(i.padStart(10, ' '))
+//          it.newLine()
+//      }
+//    }
+    var lines = File(outputName).readLines().map { it.trim() }
+//    File(outputName).writeText(lines.joinToString(separator = "\n") { it.padStart(max - it.length / 2, ' ')})
+//    var c = ""
+//    for (i in lines) {
+//        c += " ".repeat(max - (i.length / 2)) + i + '\n'
+//    }
+//    c.trim()
+//    File(outputName).writeText(c)
+//    var reader = File(inputName).bufferedReader().readLines()
+//                                     .forEach { it.padStart(max - it.length / 2, ' ') }
+    //  File(outputName).bufferedWriter().write(File(inputName).bufferedReader().readLines()
+    //           .forEach { it.padStart(max - it.length / 2, ' ') })
 
+    var writer = File(outputName).bufferedWriter()
+    for (i in 0..lines.size) {
+        writer.write(lines[i].padStart((max - lines[i].length / 2), ' '))
+    }
+    writer.close()
+
+}
 /**
  * Сложная
  *
@@ -144,7 +173,17 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  * Ключи в ассоциативном массиве должны быть в нижнем регистре.
  *
  */
-fun top20Words(inputName: String): Map<String, Int> = TODO()
+fun top20Words(inputName: String): Map<String, Int> {
+    val Allwords = File(inputName).readText()
+            .replace(Regex("""^[а-яА-Яa-zA-zёЁ]"""), " ").split(" ")
+    var words = Allwords.toSet()
+    print(words)
+    var result = mapOf<String, Int>()
+    for (i in 0 until Allwords.size)
+    result.plus(Allwords[i] to Allwords[i].count())
+    return result.keys.sortedByDescending { result[it] }.take(n = 20).associate { it to result[it]!! }
+
+}
 
 /**
  * Средняя
