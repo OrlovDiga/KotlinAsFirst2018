@@ -292,7 +292,7 @@ fun sequenceDigit(n: Int, function: (Int) -> Int): Int {
     var p = 1.0 // последовательность
     var num = 2
     while (n != k) {
-        p = pow(10.0, (quantityNum(function(num))) + function(num).toDouble())
+        p = pow(10.0, quantityNum(function(num)).toDouble()) + function(num)
         k += quantityNum(function(num))
         while (k > n) {
             k--
