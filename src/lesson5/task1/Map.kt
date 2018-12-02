@@ -250,15 +250,7 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean {
-    for (i in words) {
-        for (j in words) {
-            if (words.indexOf(i) != words.indexOf(j) && i.toList().sorted() == j.toList().sorted())
-                return true
-        }
-    }
-    return false
-}
+fun hasAnagrams(words: List<String>): Boolean = words.map { it.toList().sorted() }.toSet().size != words.size
 
 /**
  * Сложная
@@ -278,11 +270,10 @@ fun hasAnagrams(words: List<String>): Boolean {
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    for (i in list) {
-        if (list.contains(number - list[i]))
-            return Pair(list[i], number - list[i])
-    }
-    return Pair(-1, -1)
+    var result = Pair(-1, -1)
+    list.map { if (list.contains(number - it) && list.indexOf(number - it) != list.indexOf(it))
+        result = Pair(list.indexOf(number - it), list.indexOf(it)) }
+    return result
 }
 
 /**

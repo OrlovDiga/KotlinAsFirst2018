@@ -4,8 +4,7 @@ package lesson6.task1
 
 import lesson2.task2.daysInMonth
 import java.lang.Exception
-import java.lang.IllegalArgumentException
-import java.lang.IllegalStateException
+import kotlin.IllegalArgumentException
 
 val MONTHS = listOf("", "января", "февраля", "марта", "апреля", "мая", "июня",
         "июля", "августа", "сентября", "октября", "ноября", "декабря")
@@ -161,16 +160,14 @@ fun bestLongJump(jumps: String): Int? {
  * При нарушении формата входной строки вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
-    jumps.split(" ")
+    val temp = jumps.split(" ")
     var max = -1
-
     try {
-        for (i in 0..jumps.length step 2) {
-            if (jumps[i + 1] == '+' && jumps[i].toInt() > max)
-                max = jumps[i].toInt()
+        for (i in 0 until temp.size step 2) {
+            if (temp[i + 1] == "+" && temp[i].toInt() > max)
+                max = temp[i].toInt()
         }
-    } catch (e: Exception) { -1 }
-
+    } catch (e: Exception) { return -1 }
     return max
 }
 
@@ -184,18 +181,15 @@ fun bestHighJump(jumps: String): Int {
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
-    expression.split(" ")
-    var result = 0
-    try {
-        for (i in 0..expression.length step 2) {
-            if (expression[i + 1] == '-')
-                result -= expression[i].toInt()
+    val temp = expression.split(" ")
+    if (!Regex("""^\d( [+|-] \d+)*${'$'}""").matches(expression)) throw IllegalArgumentException()
+    var result = temp[0].toInt()
+        for (i in 2..temp.size step 2) {
+            if (temp[i - 1] == "-")
+                result -= temp[i].toInt()
             else
-                result += expression[i].toInt()
+                result += temp[i].toInt()
         }
-    } catch (e: IllegalArgumentException) {
-        "Упс, вы совершили ошибку!"
-    }
     return result
 }
 
@@ -217,7 +211,7 @@ fun firstDuplicateIndex(str: String): Int {
                 return index
             index += kek[i].length + 1
         }
-    } catch (e: Exception) { -1 }
+    } catch (e: Exception) { return -1 }
     return index
 }
 
@@ -261,7 +255,8 @@ fun fromRoman(roman: String): Int {
     var number = roman
     var result = 0
 
-    try {
+    if (!Regex("""[I|V|X|L|C|D|M]*""").matches(roman))
+        return -1
         while (number != "") {
             if (number.length > 1 && number.substring(0, 2) in allNumber) {
                 result += allNumber[number.substring(0, 2)]!!
@@ -271,7 +266,6 @@ fun fromRoman(roman: String): Int {
                 number = number.drop(1)
             }
         }
-    } catch (e: Exception) { -1 }
 
     return result
 }

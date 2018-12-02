@@ -281,16 +281,17 @@ fun decimalFromString(str: String, base: Int): Int {
 fun transformation(n: Int, str: String): String {
     var rimNum = ""
     val temp = n
-    when (temp != 0) {
-        temp == 1 -> rimNum += str[0]
-        temp == 2 -> rimNum += str[0].plus(str[0].toString())
-        temp == 3 -> rimNum += str[0].plus(str[0] + str[0].toString())
-        temp == 4 -> rimNum += str[1] + str[0].toString()
-        temp == 5 -> rimNum += str[1]
-        temp == 6 -> rimNum += str[0] + str[1].toString()
-        temp == 7 -> rimNum += str[0] + (str[0] + str[1].toString())
-        temp == 8 -> rimNum += str[0] + (str[0].toString() + str[0] + str[1].toString())
-        temp == 9 -> rimNum += str[2] + str[0].toString()
+    when (temp) {
+        0 -> rimNum += ""
+        1 -> rimNum += str[0]
+        2 -> rimNum += str[0].plus(str[0].toString())
+        3 -> rimNum += str[0].plus(str[0] + str[0].toString())
+        4 -> rimNum += str[1] + str[0].toString()
+        5 -> rimNum += str[1]
+        6 -> rimNum += str[0] + str[1].toString()
+        7 -> rimNum += str[0] + (str[0] + str[1].toString())
+        8 -> rimNum += str[0] + (str[0].toString() + str[0] + str[1].toString())
+        9 -> rimNum += str[2] + str[0].toString()
     }
     return rimNum
 }
@@ -322,11 +323,16 @@ fun roman(n: Int): String {
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
 fun russian(n: Int): String {
-    val exceptions = listOf("", "один", "две", "три", "четыр", "пят", "шест", "сем", "восем", "девят", "надцать ")
-    val units = listOf("", "один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
-    val dicker = listOf("", "десять ", "двадцать ", "тридцать ", "сорок ", "пятьдесят ", "шестьдесят ", "семьдесят ", "восемьдесят ", "девяносто ")
-    val hundreds = listOf("", "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ", "семьсот ", "восемьсот ", "девятьсот ")
-    val unitsOfThousands = listOf("", "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ", "девять ")
+    val exceptions = listOf("", "один", "две", "три", "четыр", "пят", "шест", "сем", "восем", "надцать ",
+            "девят")
+    val units = listOf("", "один ", "два ", "три ", "четыре ", "пять ", "шесть ", "семь ", "восемь ",
+            "девять ")
+    val dicker = listOf("", "десять ", "двадцать ", "тридцать ", "сорок ", "пятьдесят ", "шестьдесят ",
+            "семьдесят ", "восемьдесят ", "девяносто ")
+    val hundreds = listOf("", "сто ", "двести ", "триста ", "четыреста ", "пятьсот ", "шестьсот ",
+            "семьсот ", "восемьсот ", "девятьсот ")
+    val unitsOfThousands = listOf("", "одна ", "две ", "три ", "четыре ", "пять ", "шесть ", "семь ",
+            "восемь ", "девять ")
     var result = ""
     val aaa = n % 1000
     val bbb = n / 1000

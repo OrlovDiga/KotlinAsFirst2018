@@ -2,8 +2,8 @@
 
 package lesson7.task1
 
-import kotlinx.html.dom.write
 import java.io.*
+import java.nio.charset.Charset
 
 /**
  * Пример
@@ -43,6 +43,7 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
             currentLineLength += word.length
         }
     }
+
     outputStream.close()
 }
 
@@ -56,7 +57,8 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  *
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> =
-    substrings.map{ it to Regex(it.toLowerCase()).findAll(File(inputName).readText().toLowerCase()).toList().size }.toMap()
+    substrings.map{ it to Regex(it.toLowerCase()).findAll(File(inputName).readText()
+              .toLowerCase()).toList().size }.toMap()
 
 /**
  * Средняя
@@ -73,6 +75,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  */
 fun sibilants(inputName: String, outputName: String) {
     val change = mapOf("ы" to "и", "я" to "а", "ю" to "у", "Ы" to "И", "Я" to "А", "Ю" to "У")
+
     File(outputName).writeText(File(inputName).readText()
                     .replace(Regex("""(?<=[щЩшШчЧжЖ])[ЮюЯяыЫ]""")) { change[it.value].toString() })
 }
@@ -95,34 +98,16 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    var max = File(inputName).readLines().max()!!.length
-//    print(max)
-//    File(outputName).bufferedWriter().use{
-//       File(outputName).writeText( File(inputName).readLines().forEach { it.padStart(max - it.length / 2, ' ')}))
-//      for (i in File(inputName).readLines()) {
-//          it.write(i.padStart(10, ' '))
-//          it.newLine()
-//      }
-//    }
-    var lines = File(outputName).readLines().map { it.trim() }
-//    File(outputName).writeText(lines.joinToString(separator = "\n") { it.padStart(max - it.length / 2, ' ')})
-//    var c = ""
-//    for (i in lines) {
-//        c += " ".repeat(max - (i.length / 2)) + i + '\n'
-//    }
-//    c.trim()
-//    File(outputName).writeText(c)
-//    var reader = File(inputName).bufferedReader().readLines()
-//                                     .forEach { it.padStart(max - it.length / 2, ' ') }
-    //  File(outputName).bufferedWriter().write(File(inputName).bufferedReader().readLines()
-    //           .forEach { it.padStart(max - it.length / 2, ' ') })
+    val max = File(inputName).readLines().max()!!.length
+    val lines = File(inputName).readLines(Charset.defaultCharset()).map { it.trim() }
+    val writer = File(outputName).bufferedWriter()
 
-    var writer = File(outputName).bufferedWriter()
-    for (i in 0..lines.size) {
-        writer.write(lines[i].padStart((max - lines[i].length / 2), ' '))
+    lines.forEach {
+        writer.write(" ".repeat((max - it.length ) / 2) + it)
+        writer.newLine()
     }
-    writer.close()
 
+    writer.close()
 }
 /**
  * Сложная
@@ -174,16 +159,23 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  *
  */
 fun top20Words(inputName: String): Map<String, Int> {
-    val Allwords = File(inputName).readText()
-            .replace(Regex("""^[а-яА-Яa-zA-zёЁ]"""), " ").split(" ")
-    var words = Allwords.toSet()
-    print(words)
-    var result = mapOf<String, Int>()
-    for (i in 0 until Allwords.size)
-    result.plus(Allwords[i] to Allwords[i].count())
-    return result.keys.sortedByDescending { result[it] }.take(n = 20).associate { it to result[it]!! }
+    val aWord = Regex("""([a-zA-Zа-яА-ЯёЁ]+)""", RegexOption.IGNORE_CASE)
+    var g = File(inputName).readText().toLowerCase()
+    val words = Regex("""[а-яА-Яa-zA-zёЁ]+""").findAll(File(inputName).readText()
+           .toLowerCase()).toSet().groupingBy { it.value }.eachCount()
+    val k = mapOf<String, Int>()
+   //val r = words.values.sortedByDescending(selector = )
+    val t = words.keys.sortedByDescending { words[it] }.associateBy {}
+
+
+    return k
+ //   return words.keys.sortedBy { words[it] }.take(20).associateBy { }
 
 }
+
+
+
+
 
 /**
  * Средняя
@@ -221,7 +213,20 @@ fun top20Words(inputName: String): Map<String, Int> {
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: String) {
-    TODO()
+    var str = File(inputName).readText()
+    var writer = File(outputName).bufferedWriter()
+    val k = Regex("""${dictionary.keys}""").findAll(str)
+    val j = dictionary.keys.map { str.replace("$it", "${dictionary[it]}") }
+    var l = dictionary.keys
+
+    for (i in dictionary.keys) {
+        str = str.replace(Regex("""${i}""", RegexOption.IGNORE_CASE), "${dictionary[i]}")
+        File(outputName).writeText(str)
+    }
+
+    //print(str.replace(Regex("""${dictionary.keys}""")))
+  //          .replace(Regex("""(?<=[щЩшШчЧжЖ])[ЮюЯяыЫ]""")) { change[it.value].toString() })
+
 }
 
 /**
@@ -249,7 +254,11 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    TODO()
+    val max = File(inputName).readLines().filter { it.toLowerCase().toSet().size == it.length }.max()
+
+    File(outputName).writeText(File(inputName).readLines()
+            .filter { it.length == max!!.length && it.toLowerCase().toSet().size == it.length }
+            .joinToString(separator = ", "))
 }
 
 /**
@@ -434,8 +443,32 @@ fun markdownToHtml(inputName: String, outputName: String) {
  *
  */
 fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
-    TODO()
-}
+    val maxLgth = (lhv * rhv).toString().length
+
+    var writer = File(outputName).bufferedWriter()
+    val lhvLgth = lhv.toString().length
+    val rhvLght = rhv.toString().length
+    writer.write(" ".repeat(maxLgth - lhvLgth) + "\n" + "*" +
+            " ".repeat(maxLgth - rhvLght - 1) + "\n" + "-".repeat(maxLgth))
+    var i = rhvLght
+    var secNum = rhv
+    while (i != 0) {
+        val temp = (lhv * secNum % 10).toString()
+        if (i != rhvLght)
+            writer.write("+" + temp.padStart(i - temp.length - 1))
+        else writer.write(temp.padStart(i - temp.length))
+        writer.newLine()
+        i--
+        secNum /= 10
+    }
+    writer.write("-".repeat(maxLgth) + "\n" + lhv * rhv)
+    writer.close()
+
+    }
+
+
+
+
 
 
 /**

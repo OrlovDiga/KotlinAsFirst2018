@@ -4,7 +4,7 @@ package lesson1.task1
 import java.lang.Math.pow
 import kotlin.math.*
 
-fun quanityYears(years : Double) = pow(years, 3.toDouble())
+fun quanityYears(years: Double) = pow(years, 3.toDouble())
 
 const val SECOND_IN_HOUR = 3600
 const val SECOND_IN_MINUTES = 60
