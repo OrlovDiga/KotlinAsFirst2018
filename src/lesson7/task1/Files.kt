@@ -137,7 +137,40 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    val initialLines = File(inputName).readLines()
+////    val maxLgth = initialLines.map { it.split(" ") }
+////            .map { it.fold(0) {total, next -> total + next.length} }.max()
+    val writer = File(outputName).writer()
+//    var wordsLines = initialLines.map { it.trimEnd().trim().trimStart().split(" ").filter { it != "" } }
+//    var indexMax = -1
+//    var maxLgth = 0
+//    initialLines.forEachIndexed { index, s ->
+//        val lgthLine = s.split(" ").filter { it != " " }.joinToString(" ").length
+//        if (lgthLine > maxLgth) {
+//            maxLgth = lgthLine + wordsLines[index].size
+//            indexMax = index
+//        }
+//    }
+//    wordsLines.forEach {
+//        if (it.isEmpty()) writer.write("\n")
+//        else
+//        writer.write(it.joinToString(separator = " ".repeat((maxLgth - it.joinToString("").length) / it.size)) + "\n")
+//    }
+//    writer.close()
+    val maxLgth = initialLines.map { it.split(" ").filter { it != "" }
+            .joinToString(" ").trim().length}.max()!!
+    val wordsLines = initialLines.map { it.split(" ").filter { it != "" } }
+    wordsLines.forEach { writer.write(it.joinToString (" ".repeat(((maxLgth - it.joinToString("").length) / wordsLines.size) + 1)).trim() + "\n") }
+
+    println(maxLgth)
+    writer.close()
+    // Или лучше находить вот так, через joinToString ?
+    //initialLines.forEachIndexed {index, s ->  if(s.split(" ")
+    // .filter { it != " " }.joinToString("").length > indexMax) indexMax = index }
+
+
+
+
 }
 
 /**
@@ -159,23 +192,13 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  *
  */
 fun top20Words(inputName: String): Map<String, Int> {
-    val aWord = Regex("""([a-zA-Zа-яА-ЯёЁ]+)""", RegexOption.IGNORE_CASE)
-    var g = File(inputName).readText().toLowerCase()
     val words = Regex("""[а-яА-Яa-zA-zёЁ]+""").findAll(File(inputName).readText()
-           .toLowerCase()).toSet().groupingBy { it.value }.eachCount()
-    val k = mapOf<String, Int>()
-   //val r = words.values.sortedByDescending(selector = )
-    val t = words.keys.sortedByDescending { words[it] }.associateBy {}
+            .toLowerCase()).toSet().groupingBy { it.value }.eachCount()
 
-
-    return k
- //   return words.keys.sortedBy { words[it] }.take(20).associateBy { }
+    return words.keys.filter { words[it]!! > 1 }.sortedByDescending { words[it] }.take(20)
+            .map { it to words[it]!! }.toMap()
 
 }
-
-
-
-
 
 /**
  * Средняя
@@ -213,20 +236,19 @@ fun top20Words(inputName: String): Map<String, Int> {
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: String) {
-    var str = File(inputName).readText()
-    var writer = File(outputName).bufferedWriter()
-    val k = Regex("""${dictionary.keys}""").findAll(str)
-    val j = dictionary.keys.map { str.replace("$it", "${dictionary[it]}") }
-    var l = dictionary.keys
+    val reader = File(inputName).reader()
+    val writer = File(outputName).writer()
+    var ch = reader.read()
+    val newDictionary = dictionary.mapKeys { it.key.toLowerCase() }.mapValues { it.value.toLowerCase() } +
+            dictionary.mapKeys { it.key.toUpperCase() }.mapValues { it.value.toLowerCase().capitalize() }
 
-    for (i in dictionary.keys) {
-        str = str.replace(Regex("""${i}""", RegexOption.IGNORE_CASE), "${dictionary[i]}")
-        File(outputName).writeText(str)
+    while (ch != -1) {
+        writer.write(newDictionary.getOrDefault(ch.toChar(), ch.toChar().toString()))
+        ch = reader.read()
     }
 
-    //print(str.replace(Regex("""${dictionary.keys}""")))
-  //          .replace(Regex("""(?<=[щЩшШчЧжЖ])[ЮюЯяыЫ]""")) { change[it.value].toString() })
-
+    writer.close()
+    reader.close()
 }
 
 /**

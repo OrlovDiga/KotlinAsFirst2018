@@ -1,5 +1,6 @@
 package lesson1.task1
 
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
@@ -104,5 +105,108 @@ class Tests {
     fun numberRevert() {
         assertEquals(874, numberRevert(478))
         assertEquals(201, numberRevert(102))
+    }
+
+    fun myFun(input: String) : Any {
+        var file = input
+        var result = ""
+        var kol = 1
+        var j = 1
+
+
+        for (i in 0 until file.length) {
+            if (file[i] == file[i + 1])
+                kol++
+            else {
+                kol = 1
+                if (kol != 1)
+                    result += kol.toString()
+                result += file[i].toString()
+            }
+        }
+//        var pair = mutableListOf<Pair<String, String>>()
+//        pair.add(j, Pair("", file[0].toString()))
+//        for (i in 1..file.length) {
+//            if (file[i] == file[i - 1])
+//                kol++
+//            else {
+//                pair[j].first += kol.toString()
+//                kol = 1
+//                j++
+//                pair.add(j, Pair("", file[i].toString()))
+//            }
+//            print(pair)
+//        }
+//
+//
+//        var pair = mutableListOf<String>()
+//        pair[j] = file[0].toString()
+//
+//        for (i in 1..file.length) {
+//            if (file[i] == file[i - 1])
+//                kol++
+//            else {
+//                if (kol != 1)
+//                pair[j] = kol.toString() + pair[j]
+//            }
+//                kol = 1
+//                j++
+//                pair[j] = file[i].toString()
+//            }
+//        print(pair.joinToString())
+//        return pair.joinToString("")
+//
+       // while
+//        while (file != "") {
+//            i = 1
+//            while (file[0] == file[i] && file.length > i)
+//                i++
+//            println(i)
+//            result += file[0]
+//            file.droifp(i)
+//            if (i != 1)
+//                result += i.toString()
+//
+//        }
+
+
+//        for (i in 0 until file.length) {
+//            if (i != file.length && file[i] == file[i + 1])
+//                kol++
+//            else {
+//                result += file[i].toString()
+//                if (kol != 1)
+//                    result += kol.toString()
+//                kol = 1
+//            }
+//        }
+//        while (file != "") {
+//
+//        }
+
+//        file.forEachIndexed { index, c ->
+//            if (c == file[index + 1])
+//                kol++
+//            else {
+//                result+= c.toString()
+//                if (kol != 1)
+//                    result+= index.toString()
+//                kol = 0
+//            }
+//        }
+//        for (i in 0..file.length) {
+//            if (file[i] == file[i + 1] && i != file.length)
+//                kol++
+//            else {
+//
+//            }
+//
+//        }
+        return result
+    }
+
+    @Test
+    fun myFun () {
+        Assertions.assertEquals("a3bab2cb3", myFun("aaababbcbbb"))
     }
 }
