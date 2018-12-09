@@ -77,7 +77,7 @@ fun main(args: Array<String>) {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-    if (!kotlin.text.Regex("^[0-9]{1,2}\\s[а-я]{3,7}\\s[0-9]*").containsMatchIn(str))
+    if (!kotlin.text.Regex("^[0-9]{1,2} [а-я]{3,8} [0-9]*").containsMatchIn(str))
         return ""
     val temp = str.split(" ")
     if (!MONTHS.contains(temp[1]))
@@ -99,7 +99,7 @@ fun dateStrToDigit(str: String): String {
  * входными данными.
  */
 fun dateDigitToStr(digital: String): String {
-    if (!kotlin.text.Regex("^[0-9]{1,2}\\.[0-9]{1,2}\\.[0-9]{4}").containsMatchIn(digital))
+    if (!kotlin.text.Regex("^[0-9]{1,2}.[0-9]{1,2}.[0-9]+$").containsMatchIn(digital))
         return ""
     val temp = digital.split(".")
     if (MONTHS.elementAtOrNull(temp[1].toInt() - 1) == null)
@@ -141,7 +141,7 @@ fun flattenPhoneNumber(phone: String): String =
  */
 fun bestLongJump(jumps: String): Int? {
     val k = jumps.replace(Regex("""[%\-]"""), "")
-            .replace(Regex("""\s+"""), " ")
+            .replace(Regex(""" +"""), " ").trim()
     if (!Regex("""(\d+ *)+""").matches(k))
         return -1
     return k.split(" ")
@@ -164,7 +164,7 @@ fun bestHighJump(jumps: String): Int {
     var max = -1
     try {
         for (i in 0 until temp.size step 2) {
-            if (temp[i + 1] == "+" && temp[i].toInt() > max)
+            if (temp[i + 1].contains("+") && temp[i].toInt() > max)
                 max = temp[i].toInt()
         }
     } catch (e: Exception) { return -1 }
@@ -182,7 +182,7 @@ fun bestHighJump(jumps: String): Int {
  */
 fun plusMinus(expression: String): Int {
     val temp = expression.split(" ")
-    if (!Regex("""^\d( [+|-] \d+)*${'$'}""").matches(expression)) throw IllegalArgumentException()
+    if (!Regex("""^\d+( [+|-] \d+)*$""").matches(expression)) throw IllegalArgumentException()
     var result = temp[0].toInt()
         for (i in 2..temp.size step 2) {
             if (temp[i - 1] == "-")
@@ -255,7 +255,7 @@ fun fromRoman(roman: String): Int {
     var number = roman
     var result = 0
 
-    if (!Regex("""[I|V|X|L|C|D|M]*""").matches(roman))
+    if (!Regex("""[I|V|X|L|C|D|M]+""").matches(roman))
         return -1
         while (number != "") {
             if (number.length > 1 && number.substring(0, 2) in allNumber) {
