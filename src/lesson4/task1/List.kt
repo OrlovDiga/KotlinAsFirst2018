@@ -280,8 +280,7 @@ fun decimalFromString(str: String, base: Int): Int {
  */
 fun transformation(n: Int, str: String): String {
     var rimNum = ""
-    val temp = n
-    when (temp) {
+    when (n) {
         0 -> rimNum += ""
         1 -> rimNum += str[0]
         2 -> rimNum += str[0].plus(str[0].toString())

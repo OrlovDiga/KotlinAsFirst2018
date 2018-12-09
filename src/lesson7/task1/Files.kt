@@ -160,8 +160,14 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     val maxLgth = initialLines.map { it.split(" ").filter { it != "" }
             .joinToString(" ").trim().length}.max()!!
     val wordsLines = initialLines.map { it.split(" ").filter { it != "" } }
-    wordsLines.forEach { writer.write(it.joinToString (" ".repeat(((maxLgth - it.joinToString("").length) / wordsLines.size) + 1)).trim() + "\n") }
+    wordsLines.forEach { println(it) }
+        for (i in wordsLines) {
+            val strLenght = i.joinToString("").length
+            val quanitySpace = maxLgth - strLenght
 
+
+
+        }
     println(maxLgth)
     writer.close()
     // Или лучше находить вот так, через joinToString ?

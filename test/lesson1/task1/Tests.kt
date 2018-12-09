@@ -107,23 +107,23 @@ class Tests {
         assertEquals(201, numberRevert(102))
     }
 
-    fun myFun(input: String) : Any {
-        var file = input
-        var result = ""
-        var kol = 1
-        var j = 1
-
-
-        for (i in 0 until file.length) {
-            if (file[i] == file[i + 1])
-                kol++
-            else {
-                kol = 1
-                if (kol != 1)
-                    result += kol.toString()
-                result += file[i].toString()
-            }
-        }
+//    fun myFun(input: String) : Any {
+//        var file = input
+//        var result = ""
+//        var kol = 1
+//        var j = 1
+//
+//
+//        for (i in 0 until file.length) {
+//            if (file[i] == file[i + 1])
+//                kol++
+//            else {
+//                kol = 1
+//                if (kol != 1)
+//                    result += kol.toString()
+//                result += file[i].toString()
+//            }
+//        }
 //        var pair = mutableListOf<Pair<String, String>>()
 //        pair.add(j, Pair("", file[0].toString()))
 //        for (i in 1..file.length) {
@@ -202,11 +202,11 @@ class Tests {
 //            }
 //
 //        }
-        return result
-    }
-
-    @Test
-    fun myFun () {
-        Assertions.assertEquals("a3bab2cb3", myFun("aaababbcbbb"))
-    }
+//        return result
+//    }
+//
+//    @Test
+//    fun myFun () {
+//        Assertions.assertEquals("a3bab2cb3", myFun("aaababbcbbb"))
+//    }
 }
