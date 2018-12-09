@@ -57,7 +57,7 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  *
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> =
-    substrings.map{ it to Regex(it.toLowerCase()).findAll(File(inputName).readText()
+    substrings.map{ it.toLowerCase() to Regex(it.toLowerCase()).findAll(File(inputName).readText()
               .toLowerCase()).toList().size }.toMap()
 
 /**
@@ -201,7 +201,7 @@ fun top20Words(inputName: String): Map<String, Int> {
     val words = Regex("""[а-яА-Яa-zA-zёЁ]+""").findAll(File(inputName).readText()
             .toLowerCase()).toSet().groupingBy { it.value }.eachCount()
 
-    return words.keys.filter { words[it]!! > 1 }.sortedByDescending { words[it] }.take(20)
+    return words.keys.sortedByDescending { words[it] }.take(20)
             .map { it to words[it]!! }.toMap()
 
 }
@@ -245,8 +245,9 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
     val reader = File(inputName).reader()
     val writer = File(outputName).writer()
     var ch = reader.read()
-    val newDictionary = dictionary.mapKeys { it.key.toLowerCase() }.mapValues { it.value.toLowerCase() } +
-            dictionary.mapKeys { it.key.toUpperCase() }.mapValues { it.value.toLowerCase().capitalize() }
+    val newDictionary = dictionary.map { it.key.toLowerCase() to it.value.toLowerCase() }
+            .toMap() + dictionary.map { it.key.toUpperCase() to it.value.toLowerCase().capitalize() }
+            .filter { it.first != it.first.toLowerCase() }
 
     while (ch != -1) {
         writer.write(newDictionary.getOrDefault(ch.toChar(), ch.toChar().toString()))
@@ -282,10 +283,10 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    val max = File(inputName).readLines().filter { it.toLowerCase().toSet().size == it.length }.max()
+    val max = File(inputName).readLines().filter { it.toLowerCase().toSet().size == it.toLowerCase().length }.max()
 
     File(outputName).writeText(File(inputName).readLines()
-            .filter { it.length == max!!.length && it.toLowerCase().toSet().size == it.length }
+            .filter { it.length == max!!.length && it.toLowerCase().toSet().size == it.toLowerCase().length }
             .joinToString(separator = ", "))
 }
 
