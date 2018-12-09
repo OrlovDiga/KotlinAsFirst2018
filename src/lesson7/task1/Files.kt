@@ -138,46 +138,34 @@ fun centerFile(inputName: String, outputName: String) {
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
     val initialLines = File(inputName).readLines()
-////    val maxLgth = initialLines.map { it.split(" ") }
-////            .map { it.fold(0) {total, next -> total + next.length} }.max()
     val writer = File(outputName).writer()
-//    var wordsLines = initialLines.map { it.trimEnd().trim().trimStart().split(" ").filter { it != "" } }
-//    var indexMax = -1
-//    var maxLgth = 0
-//    initialLines.forEachIndexed { index, s ->
-//        val lgthLine = s.split(" ").filter { it != " " }.joinToString(" ").length
-//        if (lgthLine > maxLgth) {
-//            maxLgth = lgthLine + wordsLines[index].size
-//            indexMax = index
-//        }
-//    }
-//    wordsLines.forEach {
-//        if (it.isEmpty()) writer.write("\n")
-//        else
-//        writer.write(it.joinToString(separator = " ".repeat((maxLgth - it.joinToString("").length) / it.size)) + "\n")
-//    }
-//    writer.close()
     val maxLgth = initialLines.map { it.split(" ").filter { it != "" }
             .joinToString(" ").trim().length}.max()!!
     val wordsLines = initialLines.map { it.split(" ").filter { it != "" } }
-    wordsLines.forEach { println(it) }
-        for (i in wordsLines) {
-            val strLenght = i.joinToString("").length
-            val quanitySpace = maxLgth - strLenght
 
+    for (i in wordsLines) {
+        val strLenght = i.joinToString("").length
+        val quanitySpace = maxLgth - strLenght
 
+        if (i.size > 1) {
+            val extraSpaces = quanitySpace % (i.size - 1)
+            val spaceLgth = quanitySpace / (i.size - 1)
 
+            for (j in 0 until extraSpaces)
+                writer.write(i[j] + " ".repeat(spaceLgth + 1))
+
+            for (j in extraSpaces..i.size - 2)
+                writer.write(i[j] + " ".repeat(spaceLgth))
+
+            writer.write(i[i.size - 1])
         }
-    println(maxLgth)
+        else writer.write(i.joinToString(""))
+
+        writer.write("\n")
+    }
     writer.close()
-    // Или лучше находить вот так, через joinToString ?
-    //initialLines.forEachIndexed {index, s ->  if(s.split(" ")
-    // .filter { it != " " }.joinToString("").length > indexMax) indexMax = index }
-
-
-
-
 }
+
 
 /**
  * Средняя
