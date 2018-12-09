@@ -206,14 +206,15 @@ fun collatzSteps(x: Int): Int {
  */
 fun sinAndCos (n: Int, x: Double, eps: Double ): Double {
     var p = 0.0
-    var n2 = n
+    var n = n
+    var k = 1
     val num = x % (2 * PI)
-    var lastElement = pow(num, n2.toDouble()) / factorial(n2)
-    while (abs(lastElement) >= eps) {
-        lastElement *= -1 * num * num / (n2 - 1) / (n2 - 2)
-        n2 += 2
+    while (abs((pow(num, n.toDouble()) / factorial(n))) >= eps) {
+        p += k * (pow(num, n.toDouble()) / factorial(n))
+        n += 2
+        k *= -1
     }
-    return lastElement
+    return p
 }
 // Я не знаю, что вы имели ввиду, но я тут чуть чуть переделал - написал одну функцию для двух задач.
 
