@@ -137,9 +137,9 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    if (File(inputName).readText() == "") File(outputName).writeText("")
     val initialLines = File(inputName).readLines()
     val writer = File(outputName).writer()
+    writer.write("")
     val maxLgth = initialLines.map { it.split(" ").filter { it != "" }
             .joinToString(" ").trim().length}.max()!!
     // Лучше через joinToString находить длину или через fold ?
@@ -272,7 +272,7 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    val max = File(inputName).readLines().filter { it.toSet().size == it.length }.max()
+    val max = File(inputName).readLines().filter { it.toSet().size == it.length }.maxBy { it.length }
     print(max)
 
     File(outputName).writeText(File(inputName).readLines()
