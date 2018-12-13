@@ -347,7 +347,7 @@ fun russian(n: Int): String {
             result = when {
                 bbb % 10 == 1 -> unitsOfThousands[bbb % 10] + "тысяча " + result
                 bbb % 10 in 2..4 -> unitsOfThousands[bbb % 10] + "тысячи " + result
-                else -> "тысяч " + unitsOfThousands[bbb % 10] + result
+                else -> unitsOfThousands[bbb % 10] + "тысяч " + result
             }
             result = hundreds[bbb / 100] + dicker[bbb / 10 % 10] + result
         }

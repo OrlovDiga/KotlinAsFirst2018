@@ -140,30 +140,35 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     val initialLines = File(inputName).readLines()
     val writer = File(outputName).writer()
     writer.write("")
-    val maxLgth = initialLines.map { it.split(" ").filter { it != "" }
-            .joinToString(" ").trim().length}.max()!!
-    // Лучше через joinToString находить длину или через fold ?
-    val wordsLines = initialLines.map { it.split(" ").filter { it != "" } }
+    if (File(inputName).readText() == "")
+        File(outputName).writeText("")
+    else {
+        val maxLgth = initialLines.map {
+            it.split(" ").filter { it != "" }
+                    .joinToString(" ").trim().length
+        }.max()!!
+        // Лучше через joinToString находить длину или через fold ?
+        val wordsLines = initialLines.map { it.split(" ").filter { it != "" } }
 
-    for (i in wordsLines) {
-        val strLenght = i.joinToString("").length
-        val quanitySpace = maxLgth - strLenght
+        for (i in wordsLines) {
+            val strLenght = i.joinToString("").length
+            val quanitySpace = maxLgth - strLenght
 
-        if (i.size > 1) {
-            val extraSpaces = quanitySpace % (i.size - 1)
-            val spaceLgth = quanitySpace / (i.size - 1)
+            if (i.size > 1) {
+                val extraSpaces = quanitySpace % (i.size - 1)
+                val spaceLgth = quanitySpace / (i.size - 1)
 
-            for (j in 0 until extraSpaces)
-                writer.write(i[j] + " ".repeat(spaceLgth + 1))
+                for (j in 0 until extraSpaces)
+                    writer.write(i[j] + " ".repeat(spaceLgth + 1))
 
-            for (j in extraSpaces..i.size - 2)
-                writer.write(i[j] + " ".repeat(spaceLgth))
+                for (j in extraSpaces..i.size - 2)
+                    writer.write(i[j] + " ".repeat(spaceLgth))
 
-            writer.write(i[i.size - 1])
+                writer.write(i[i.size - 1])
+            } else writer.write(i.joinToString(""))
+
+            writer.write("\n")
         }
-        else writer.write(i.joinToString(""))
-
-        writer.write("\n")
     }
     writer.close()
 }
