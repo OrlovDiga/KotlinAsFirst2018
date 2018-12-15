@@ -335,7 +335,7 @@ fun russian(n: Int): String {
     var result = ""
     val aaa = n % 1000
     val bbb = n / 1000
-    result = if (aaa / 10 % 10 == 1)
+    result = if (aaa / 10 % 10 == 1 && aaa % 10 != 0)
         hundreds[aaa / 100] + exceptions[aaa % 10] + exceptions[10]
     else
         hundreds[aaa / 100] + dicker[aaa / 10 % 10] + units[aaa % 10]
