@@ -470,34 +470,29 @@ fun markdownToHtml(inputName: String, outputName: String) {
  2350
  *
  */
-fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
-    val maxLgth = (lhv * rhv).toString().length
-
-    var writer = File(outputName).bufferedWriter()
-    val lhvLgth = lhv.toString().length
-    val rhvLght = rhv.toString().length
-    writer.write(" ".repeat(maxLgth - lhvLgth) + "\n" + "*" +
-            " ".repeat(maxLgth - rhvLght - 1) + "\n" + "-".repeat(maxLgth))
-    var i = rhvLght
-    var secNum = rhv
-    while (i != 0) {
-        val temp = (lhv * secNum % 10).toString()
-        if (i != rhvLght)
-            writer.write("+" + temp.padStart(i - temp.length - 1))
-        else writer.write(temp.padStart(i - temp.length))
-        writer.newLine()
-        i--
-        secNum /= 10
-    }
-    writer.write("-".repeat(maxLgth) + "\n" + lhv * rhv)
-    writer.close()
-
-    }
-
-
-
-
-
+fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) { TODO() }
+//    val maxLgth = (lhv * rhv).toString().length
+//
+//    var writer = File(outputName).bufferedWriter()
+//    val lhvLgth = lhv.toString().length
+//    val rhvLght = rhv.toString().length
+//    writer.write(" ".repeat(maxLgth - lhvLgth) + "\n" + "*" +
+//            " ".repeat(maxLgth - rhvLght - 1) + "\n" + "-".repeat(maxLgth))
+//    var i = rhvLght
+//    var secNum = rhv
+//    while (i != 0) {
+//        val temp = (lhv * secNum % 10).toString()
+//        if (i != rhvLght)
+//            writer.write("+" + temp.padStart(i - temp.length - 1))
+//        else writer.write(temp.padStart(i - temp.length))
+//        writer.newLine()
+//        i--
+//        secNum /= 10
+//    }
+//    writer.write("-".repeat(maxLgth) + "\n" + lhv * rhv)
+//    writer.close()
+//
+//    }
 
 /**
  * Сложная

@@ -203,13 +203,13 @@ fun plusMinus(expression: String): Int {
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
 fun firstDuplicateIndex(str: String): Int {
-    var kek = str.split(" ")
+    val words = str.split(" ")
     var index = 0
     try {
-        for (i in 0 until kek.size) {
-            if (kek[i].toLowerCase() == kek[i + 1].toLowerCase())
+        for (i in 0 until words.size) {
+            if (words[i].toLowerCase() == words[i + 1].toLowerCase())
                 return index
-            index += kek[i].length + 1
+            index += words[i].length + 1
         }
     } catch (e: Exception) { return -1 }
     return index
@@ -307,28 +307,5 @@ fun fromRoman(roman: String): Int {
  *
  */
 fun computeDeviceCells(cells: Int, commands: String, limit: Int) {
-    var kak = mutableListOf<Int>()
-    var lol = cells.toString()
-    while (lol != "") {
-        kak.add(lol.toInt() % 10)
-        lol.dropLast(1)
-    }
-    var index = kak.size / 2
-    var numOfActions = 0
+    TODO()
 }
-//    while (numOfActions != limit || com)
-//    if (!Regex("""[<>+\-\[\] ]*""").matches(commands)) throw IllegalArgumentException()
-//        while (commands != " " && ) {
-//            when {
-//                commands[0] == '>' -> index--
-//                commands[0] == '<' -> index++
-//                commands[0] == '-' -> kak[index]--
-//                commands[0] == '+' -> kak[index]++
-//                commands[0] == ']' && kak[index] != 0 ->
-//                commands[0] == '[' && kak[index] == 0 -> commands.dropWhile { commands[0] != ']' }
-//                    commands[0] == ' '
-//                -> println("KEK_CHEBUREK")
-//            }
-//            commands.drop(1)
-//        }
-

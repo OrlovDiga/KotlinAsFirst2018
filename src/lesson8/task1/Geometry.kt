@@ -2,10 +2,10 @@
 package lesson8.task1
 
 import lesson1.task1.sqr
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import lesson2.task1.segmentLength
+import lesson2.task2.pointInsideCircle
+import java.lang.IllegalArgumentException
+import kotlin.math.*
 
 /**
  * Точка на плоскости
@@ -76,14 +76,19 @@ data class Circle(val center: Point, val radius: Double) {
      * расстояние между их центрами минус сумма их радиусов.
      * Расстояние между пересекающимися окружностями считать равным 0.0.
      */
-    fun distance(other: Circle): Double = TODO()
+    fun distance(other: Circle): Double {
+        val temp = center.distance(other.center) - (radius + other.radius)
+        return if (temp > 0.0)
+            temp
+        else 0.0
 
+    }
     /**
      * Тривиальная
      *
      * Вернуть true, если и только если окружность содержит данную точку НА себе или ВНУТРИ себя
      */
-    fun contains(p: Point): Boolean = TODO()
+    fun contains(p: Point): Boolean = center.distance(p) <= radius
 }
 
 /**
@@ -104,6 +109,18 @@ data class Segment(val begin: Point, val end: Point) {
  * Если в множестве менее двух точек, бросить IllegalArgumentException
  */
 fun diameter(vararg points: Point): Segment = TODO()
+//    var maximum = Segment(points[0], points[1])
+//
+//    if (points.size < 2)
+//        throw IllegalArgumentException()
+//
+//    for (i in 0..points.size)
+//        for (j in i + 1 until  points.size) {
+//        val nowSegment = Segment(points[i], points[j])
+//            maximum = max(maximum, )
+//
+//        }
+//}
 
 /**
  * Простая
