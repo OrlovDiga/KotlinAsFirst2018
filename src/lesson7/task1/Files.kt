@@ -58,8 +58,7 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  *
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> =
-    substrings.map{ it.toLowerCase() to Regex(it.toLowerCase()).findAll(File(inputName).readText()
-              .toLowerCase()).toList().size }.toMap()
+    substrings.map{ it to Regex(it, RegexOption.IGNORE_CASE).findAll(File(inputName).readText()).toList().size }.toMap()
 
 /**
  * Средняя
