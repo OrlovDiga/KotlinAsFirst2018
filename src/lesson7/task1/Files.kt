@@ -4,6 +4,7 @@ package lesson7.task1
 
 import java.io.*
 import java.nio.charset.Charset
+import kotlin.math.max
 
 /**
  * Пример
@@ -98,8 +99,12 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    val max = File(inputName).readLines().max()!!.length
-    val lines = File(inputName).readLines(Charset.defaultCharset()).map { it.trim() }
+    val reader = File(inputName).readLines(Charset.defaultCharset())
+    var max = 0/*File(inputName).readLines().max()!!.length*/
+    reader.forEach { if (it.length > max) max = it.length }
+    println(max)
+
+    val lines = reader.map { it.trim() }
     val writer = File(outputName).bufferedWriter()
 
     lines.forEach {
