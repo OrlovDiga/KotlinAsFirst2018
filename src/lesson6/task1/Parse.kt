@@ -249,14 +249,14 @@ fun mostExpensive(description: String): String {
  * Вернуть -1, если roman не является корректным римским числом
  */
 fun fromRoman(roman: String): Int {
+    if (!Regex("""[IVXLCDM]+""").matches(roman))
+        return -1
+
     val allNumber = mapOf("CM" to 900, "M" to 1000, "CD" to 400, "D" to 500,  "XC" to 90,
             "C" to 100, "XL" to 40, "L" to 50, "IX" to 9,
             "X" to 10, "IV" to 4, "V" to 5, "I" to 1)
     var number = roman
     var result = 0
-
-    if (!Regex("""[IVXLCDM]+""").matches(roman))
-        return -1
 
     while (number != "") {
         if (number.length > 1 && number.substring(0, 2) in allNumber) {
