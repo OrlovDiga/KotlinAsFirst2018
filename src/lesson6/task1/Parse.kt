@@ -255,7 +255,7 @@ fun fromRoman(roman: String): Int {
     var number = roman
     var result = 0
 
-    if (!Regex("""[I|V|X|L|C|D|M]+""").matches(roman))
+    if (!Regex("""[IVXLCDM]+""").matches(roman))
         return -1
 
     while (number != "") {
