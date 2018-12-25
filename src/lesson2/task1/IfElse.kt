@@ -160,10 +160,10 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     if (max > mid + min)
         return -1
     val value = sqr(max) - sqr(min) - sqr(mid)
-    return when (value) {
-        0.0 -> 1
-        in 0.0..Double.MAX_VALUE -> 2
-        in Double.MIN_VALUE..0.0 -> 0
+    return when {
+        value == 0.0 -> 1
+        value > 0.0 -> 2
+        value < 0.0 -> 0
         else -> -1
     }
 }

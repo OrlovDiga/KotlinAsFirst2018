@@ -257,15 +257,16 @@ fun fromRoman(roman: String): Int {
 
     if (!Regex("""[I|V|X|L|C|D|M]+""").matches(roman))
         return -1
-        while (number != "") {
-            if (number.length > 1 && number.substring(0, 2) in allNumber) {
-                result += allNumber[number.substring(0, 2)]!!
-                number = number.drop(2)
-            } else {
-                result += allNumber[number[0].toString()]!!
-                number = number.drop(1)
-            }
+
+    while (number != "") {
+        if (number.length > 1 && number.substring(0, 2) in allNumber) {
+            result += allNumber[number.substring(0, 2)]!!
+            number = number.drop(2)
+        } else {
+            result += allNumber[number[0].toString()]!!
+            number = number.drop(1)
         }
+    }
 
     return result
 }
