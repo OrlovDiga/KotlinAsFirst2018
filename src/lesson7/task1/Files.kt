@@ -205,7 +205,6 @@ fun top20Words(inputName: String): Map<String, Int> {
 
     return words.keys.sortedByDescending { words[it] }.take(20)
             .map { it to words[it]!! }.toMap()
-
 }
 
 /**

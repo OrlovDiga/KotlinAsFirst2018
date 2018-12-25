@@ -218,7 +218,8 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.toSet().int
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = word.toCharArray().toSet().all { it.toLowerCase() in chars }
+fun canBuildFrom(chars: List<Char>, word: String): Boolean = word.toCharArray().toSet()
+        .all { smbl -> smbl.toLowerCase() in chars.toCharArray().map { it.toLowerCase() } }
 
 /**
  * Средняя
