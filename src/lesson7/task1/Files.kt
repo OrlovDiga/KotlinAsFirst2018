@@ -112,7 +112,7 @@ fun centerFile(inputName: String, outputName: String) {
         if (temp % 2 == 0)
             writer.write(" ".repeat((max - it.length ) / 2) + it.trimStart())
         else
-            writer.write(" ".repeat((max - it.length ) / 2) + it.trimStart() + 1)
+            writer.write(" ".repeat((max - it.length ) / 2 + 1) + it.trimStart())
         writer.newLine()
     }
 

@@ -109,7 +109,7 @@ class Tests {
     @Test
     @Tag("Hard")
     fun mostExpensive() {
-        assertEquals("", mostExpensive(""))
+        assertEquals("", mostExpensive("tStiB=ZSv^%&#f%_c3\\\\w/<WEnofxi9)t\\\"D9K[!CG@d%r]j3lF,)BGojKSC~\\\"8Kj 11522397.42"))
         assertEquals("Курица", mostExpensive("Хлеб 39.9; Молоко 62.5; Курица 184.0; Конфеты 89.9"))
         assertEquals("Вино", mostExpensive("Вино 255.0"))
     }

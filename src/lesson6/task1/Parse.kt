@@ -227,14 +227,15 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть больше либо равны нуля.
  */
 fun mostExpensive(description: String): String {
-    return try {
+    if (!Regex("""(.+ \d+(\.\d+)*; )*(.+ \d+(\.\d+)*){1}""").matches(description))
+        return ""
         val allList = description.replace(";", "").split(" ")
         val maxPrice = allList
                         .filter { Regex("""\d+.*\d+""").matches(it) }
                         .map { it.toDouble() }
                         .max().toString()
-        allList[allList.indexOf(maxPrice) - 1] // находит название товара по индексу максимальной цены -1
-    } catch (e: Exception) { "" }
+        return allList[allList.indexOf(maxPrice) - 1] // находит название товара по индексу максимальной цены -1
+
 }
 
 /**
