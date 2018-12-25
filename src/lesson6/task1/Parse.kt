@@ -229,14 +229,29 @@ fun firstDuplicateIndex(str: String): Int {
 fun mostExpensive(description: String): String {
     if (!Regex("""(.+ \d+(\.\d+)*; )*(.+ \d+(\.\d+)*){1}""").matches(description))
         return ""
-        val allList = description.replace(";", "").split(" ")
-        val maxPrice = allList
-                        .filter { Regex("""\d+.*\d+""").matches(it) }
-                        .map { it.toDouble() }
-                        .max().toString()
-        return allList[allList.indexOf(maxPrice) - 1] // находит название товара по индексу максимальной цены -1
-
+    val allList = description.replace(";", "").split(" ")
+    val resul = mutableMapOf<String, Double>()
+    for (i in 0 until allList.size step 2)
+        resul[allList[i]] = allList[i + 1].toDouble()
+    val maxPrice = resul.values.max()
+    for (i in resul.keys)
+        if (resul[i] == maxPrice)
+            return i
+    return ""
 }
+//        val maxPrice = allList
+//                        .filter { Regex("""\d+.*\d+""").matches(it) }
+//                        .map { it.toDouble() }
+//                        .max().toString()
+//    println(allList.indexOf(maxPrice))
+//    println(maxPrice)
+//    for (i in allList) {
+//        println(i)
+//        if (i == maxPrice)
+//        println("ADADADADADADADADADDADADA")
+//    }
+//        return allList[allList.indexOf(maxPrice) - 1] // находит название товара по индексу максимальной цены -1
+
 
 /**
  * Сложная

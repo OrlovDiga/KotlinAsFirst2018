@@ -109,7 +109,7 @@ class Tests {
     @Test
     @Tag("Hard")
     fun mostExpensive() {
-        assertEquals("", mostExpensive("tStiB=ZSv^%&#f%_c3\\\\w/<WEnofxi9)t\\\"D9K[!CG@d%r]j3lF,)BGojKSC~\\\"8Kj 11522397.42"))
+        assertEquals("nw>C_7EAc", mostExpensive("f^9euO!SG6y 0.01; iOj4v`f/I10%Mm%9F[oAXb2!MU=*a=&BOTrH'cD/qbapultgwEB+{\\\\lgv|ErJ2B%cF|bCu#rux2~&M13V8gK^n}^W9TAv3%/R([S*\\\"6PPXm5r9Ob?V#{y{nVE_WE/#Vq9I/g90^l%G,T*I7W*/G)7,gs<]=CXJw8Gb]Hbh:UUHQ7%)G5\\\\hT'}xw|U%,.cs\$\$*,fMq*4i\\\\+E^C{><EP8Y<f:L 9321234.76; nw>C_7EAc 21474836.47"))
         assertEquals("Курица", mostExpensive("Хлеб 39.9; Молоко 62.5; Курица 184.0; Конфеты 89.9"))
         assertEquals("Вино", mostExpensive("Вино 255.0"))
     }
