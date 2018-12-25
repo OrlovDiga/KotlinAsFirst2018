@@ -117,7 +117,7 @@ fun diameter(vararg points: Point): Segment = TODO()
 //    for (i in 0..points.size)
 //        for (j in i + 1 until  points.size) {
 //        val nowSegment = Segment(points[i], points[j])
-//            maximum = max(maximum, )
+//            maximum = max(Segment(points[i],points[j]), maximum)
 //
 //        }
 //}
@@ -129,6 +129,11 @@ fun diameter(vararg points: Point): Segment = TODO()
  * Центр её должен находиться посередине между точками, а радиус составлять половину расстояния между ними
  */
 fun circleByDiameter(diameter: Segment): Circle = TODO()
+//    val radius = diameter.begin.distance(diameter.end) / 2
+//
+//
+//}
+
 
 /**
  * Прямая, заданная точкой point и углом наклона angle (в радианах) по отношению к оси X.
