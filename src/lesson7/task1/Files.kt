@@ -101,18 +101,18 @@ fun sibilants(inputName: String, outputName: String) {
 fun centerFile(inputName: String, outputName: String) {
     val reader = File(inputName).readLines(Charset.defaultCharset())
     val max = reader.map { it.trimEnd().trimStart().length }.max()!!
-    val lines = reader.map { it.trim() }
+    val lines = reader.map { it.trimStart().trimEnd() }
     val writer = File(outputName).bufferedWriter()
-//    println(max)
+    println(max)
 
     lines.forEach {
-        val temp = max - it.length
+        var temp = max - it.length
+        println("${temp / 2}   ${temp % 2}")
+        println("Длина строки" + it.length)
         println(temp)
-//        println("Длина строки" + it.length)
-        if (temp % 2 == 0)
-            writer.write(" ".repeat((max - it.length ) / 2) + it.trimStart())
-        else
-            writer.write(" ".repeat((max - it.length ) / 2 - 1) + it.trimStart())
+        if (temp % 2 != 0)
+            temp -=1
+        writer.write(" ".repeat((max - it.length ) / 2) + it)
         writer.newLine()
     }
 
