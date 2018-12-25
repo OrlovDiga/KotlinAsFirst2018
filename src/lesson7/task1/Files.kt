@@ -115,9 +115,8 @@ fun centerFile(inputName: String, outputName: String) {
     } else
         writer.write("")
     writer.close()
-
-
 }
+
 /**
  * Сложная
  *
