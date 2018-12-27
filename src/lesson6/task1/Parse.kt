@@ -102,7 +102,7 @@ fun dateDigitToStr(digital: String): String {
     if (!kotlin.text.Regex("^[0-9]{1,2}.[0-9]{1,2}.[0-9]+$").containsMatchIn(digital))
         return ""
     val temp = digital.split(".")
-    if (MONTHS.elementAtOrNull(temp[1].toInt() - 1) == null)
+    if (MONTHS.elementAtOrNull(temp[1].toInt() - 1) == null || temp[1] == "13")
         return ""
     val month = MONTHS[temp[1].toInt()]
     if (daysInMonth(temp[1].toInt(), temp[2].toInt()) < temp[0].toInt() && temp[0].toInt() > 0)

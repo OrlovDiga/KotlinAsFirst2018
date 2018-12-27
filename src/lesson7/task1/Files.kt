@@ -99,7 +99,7 @@ fun sibilants(inputName: String, outputName: String) {
 fun centerFile(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     val readLines = File(inputName).readLines(Charset.defaultCharset())
-    if (readLines.isEmpty()) {
+    if (readLines.isNotEmpty()) {
         val max = readLines.map { it.trimEnd().trimStart().length }.max()!!
         val lines = readLines.map { it.trimStart().trimEnd() }
         lines.forEach {
